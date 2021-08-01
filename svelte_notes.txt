@@ -1,0 +1,76 @@
+- HTML can access variables in JS
+- Style blocks are scoped to component
+- Reactive statements need special label
+    - 	let count = 0;
+        $: doubled = count * 2;
+    - They also need to be explicitly assigned. list.push() list.pop() won't react.
+- Allow variables to be externally assigned by making them 'export' -within- the component
+
+- Conditionals
+{#if user.loggedIn}
+	<button on:click={toggle}>
+		Log out
+	</button>
+{:else}
+	<button on:click={toggle}>
+		Log in
+	</button>
+{/if}
+
+- For Each 
+<ul>
+	{#each cats as cat, i}
+		<li><a target="_blank" href="https://www.youtube.com/watch?v={cat.id}">
+			{cat.name}
+		</a></li>
+	{/each}
+</ul>
+    - Modifying list as you loop requires explicit key
+    {#each things as thing (thing.id)}
+        <Thing name={thing.name}/>
+    {/each}
+
+- Await Promises
+{#await promise}
+	<p>...waiting</p>
+{:then number}
+	<p>The number is {number}</p>
+{:catch error}
+	<p style="color: red">{error.message}</p>
+{/await}
+
+- Listen to Events
+<div on:mousemove={handleMousemove}>
+	The mouse position is {m.x} x {m.y}
+</div>
+    - Listeners can be modified
+    <div on:mousemove|once={handleMousemove}>
+	The mouse position is {m.x} x {m.y}
+    </div>
+
+- Dispatch Events (Can be DOM like on:click or custom like on:message)
+	const dispatch = createEventDispatcher();
+
+	function sayHello() {
+		dispatch('message', {
+			text: 'Hello!'
+		});
+	}
+
+    <Inner on:message={handleMessage}/>
+    - Remove explicit handler to just let event bubble up:
+        <Inner on:message/>
+
+- Have component modify JS variable directly (useful for inputs and forms):
+    <script>
+	let name = 'world';
+    </script>
+
+    <input bind:value={name}>
+
+    - For other types of inputs
+    <input type=checkbox bind:checked={yes}>
+    <select bind:value={selected} on:change="{() => answer = ''}">
+
+    - For multiple inputs all affecting the same variable (bind:group)
+    <input type=radio bind:group={scoops} name="scoops" value={1}>
