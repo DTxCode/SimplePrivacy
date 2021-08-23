@@ -11,38 +11,22 @@ async function encrypt(input, password) {
         passwords: [password]
     });
 
-    console.log(encrypted);
-
     return encrypted;
 }
 
 async function decrypt(encryptedMessage, password) { 
-    const message = openpgp.readMessage({
-        armoredMessage: encryptedMessage
-    })
+    const message = await openpgp.message.readArmored(encryptedMessage);
 
-    return openpgp.decrypt({
+    const { data: decrpyted } = await openpgp.decrypt({
         message: message,
         passwords: [password]
     })
-}
 
-function test(string, password) {
-    return string + "a";
+    return decrpyted;
 }
 
 export default {
     encrypt,
-    decrypt,
-    test
+    decrypt
 }
-
-// async function main() {
-//     const encryptedData = await encrypt("hello there", "pwd");
-//     console.log(encryptedData);
-
-//     const decryptedData = await decrypt(encryptedData, "pwd");
-//     console.log(decryptedData);
-// }
-
 
