@@ -9,6 +9,7 @@
 
 	$: (async() => {
 		if (!input || !password) {
+			output = '';
 			return;
 		}
 
@@ -42,6 +43,28 @@
 		await navigator.clipboard.writeText(output);
 	}
 
+	function readFile(event) {
+		const fileList = event.target.files;
+
+		const fileReader = new FileReader();
+		fileReader.addEventListener('load', (event) => {
+			const result = event.target.result;
+			input = result;
+		});
+
+		fileReader.readAsText(fileList[0]);
+	}
+
+	function writeFile() {
+		// TODO: fix file extension and download format for zips
+		const filename = doEncrypt ? "output.gpg" : "output.zip";
+
+		var element = document.createElement('a');
+		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + output);
+		element.setAttribute('download', filename);
+		element.click();
+	}
+
 </script>
 
 <h1>Option</h1>
@@ -59,6 +82,7 @@
 <button on:click={readClipboard}>
 	Paste
 </button>
+<input type="file" on:change={readFile}>
 <br>
 <textarea bind:value={input}></textarea>
 
@@ -68,6 +92,9 @@
 <h1>Output</h1>
 <button on:click={writeClipboard}>
 	Copy
+</button>
+<button on:click={writeFile}>
+	Download
 </button>
 <br>
 <textarea disabled value={output}></textarea>

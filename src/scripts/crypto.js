@@ -1,7 +1,6 @@
 const openpgp = require('openpgp');
 
-
-// TODO: upgrade to OpenPGP v5 and fix functions
+// TODO: upgrade to OpenPGP v5
 
 async function encrypt(input, password) {
     const message = await openpgp.message.fromText(input);
