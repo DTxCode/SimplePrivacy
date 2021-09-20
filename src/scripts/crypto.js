@@ -1,24 +1,29 @@
 const openpgp = require('openpgp');
 
-// TODO: upgrade to OpenPGP v5
+async function encrypt(binaryInput, password) {
 
-async function encrypt(input, password) {
-    const message = await openpgp.message.fromText(input);
+    const message = await openpgp.createMessage({
+        'binary': Uint8Array.from(binaryInput)
+    })
     
-    const { data: encrypted } = await openpgp.encrypt({
+    const encrypted = await openpgp.encrypt({
         message,
-        passwords: [password]
+        passwords: [password],
+        format: 'armored'
     });
 
     return encrypted;
 }
 
 async function decrypt(encryptedMessage, password) { 
-    const message = await openpgp.message.readArmored(encryptedMessage);
+    const message = await openpgp.readMessage({
+        armoredMessage: encryptedMessage
+    });
 
     const { data: decrpyted } = await openpgp.decrypt({
         message: message,
-        passwords: [password]
+        passwords: [password],
+        format: 'binary'
     })
 
     return decrpyted;
