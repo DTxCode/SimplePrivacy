@@ -18,13 +18,19 @@ function readFile(file) {
     });
 }
 
-function writeFile(fileName, fileMIMEType, isBase64, data) {
-    const base64String = isBase64 ? ';base64' : '';
+function writeFile(fileName, mimeType, data) {
+    const blob = new Blob([data], {
+        type: mimeType
+    });
+
+    const url = window.URL.createObjectURL(blob)
 
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:' + fileMIMEType + base64String + ',' + data);
+    element.setAttribute('href', url);
     element.setAttribute('download', fileName);
     element.click();
+    
+    setTimeout(() => window.URL.revokeObjectURL(url), 1000)
 }
 
 export default {

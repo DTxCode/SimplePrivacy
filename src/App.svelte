@@ -7,6 +7,7 @@
 
 	let inputDisplayText = '';
 	let inputInfo; //binary and fileName
+	let fileInputReference;
 
 	let password;
 
@@ -19,26 +20,30 @@
 			return;
 		}
 
+		console.log(`Processing input with ASCII value ${inputDisplayText} and binary value ${inputInfo.binaryFileContents}`)
+
 		try {
 			if (doEncrypt) {
-				outputDisplayText = await crypto.encrypt(inputInfo.binaryFileContents, password);
-				outputInfo = null;
-			} else {
-				const outputBinary = await crypto.decrypt(inputDisplayText, password);
+				const encryptedASCIIMessage = await crypto.encrypt(inputInfo.binaryFileContents, password);
+				
+				const encoder = new TextEncoder();
 
-				if (!inputInfo.fileName) { // Didn't come from file, so definitely ASCII
-					const decoder = new TextDecoder();
+				console.log(`Encrypted into ASCII message ${encryptedASCIIMessage}`)
 
-					outputDisplayText = decoder.decode(outputBinary);
-				} else {
-					outputDisplayText = outputBinary;
-				}
-
+				outputDisplayText = encryptedASCIIMessage;
 				outputInfo = {
-					binaryFileContents: outputBinary
+					binaryFileContents: encoder.encode(encryptedASCIIMessage)
+				}
+			} else {
+				const decryptedBinaryMessage = await crypto.decrypt(inputDisplayText, password);
+
+				console.log(`Decrypted into binary message ${decryptedBinaryMessage}`)
+
+				outputDisplayText = "Download file to view decrypted binary"
+				outputInfo = {
+					binaryFileContents: decryptedBinaryMessage
 				}
 			}
-
 		} catch (e) {
 			outputDisplayText = e; 
 		}
@@ -46,11 +51,17 @@
 	})();
 
 	function onRadioChange() {
-		inputDisplayText = '';
-		inputInfo = null;
+		clear();
 		doEncrypt = !doEncrypt;
 	}
 
+	function clear() {
+		inputDisplayText = '';
+		password = '';
+		inputInfo = null;
+		fileInputReference.value = '';
+	}
+	
 	// ############################# Data Input Methods
 
 	async function readClipboard() {
@@ -59,10 +70,10 @@
 		const encoder = new TextEncoder()
 		const binaryFileContents = encoder.encode(clipboardContents);
 
-		inputDisplayText = clipboardContents;
 		inputInfo = {
 			binaryFileContents: binaryFileContents
 		}
+		inputDisplayText = clipboardContents;
 	}
 
 	async function readFileInput(event) {
@@ -80,6 +91,7 @@
 		inputInfo = {
 			binaryFileContents: binaryFileContents
 		}
+		// inputDisplayText manipulated by Svelte
 	}
 
 	// ############################## Data Output Methods
@@ -90,15 +102,13 @@
 
 	function downloadOutput() {
 		let fileName;
-		let fileType;
-		let isBase64;
+		let mimeType;
 		let data;
 		
 		if (doEncrypt) {
 			fileName = inputInfo.fileName ? inputInfo.fileName + '.gpg' : 'output.txt.gpg';
 
-			fileType = 'text/plain'; // Encryption always outputs ASCII text
-			isBase64 = false;
+			mimeType = 'text/plain'; // Encryption always outputs ASCII text
 			data = outputDisplayText;
 		} else {
 			if (inputInfo.fileName) {
@@ -107,13 +117,12 @@
 				fileName = 'output.txt';
 			}
 
-			fileType = 'application/octet-stream'; // Decryption always outputs binary
-			isBase64 = true;
-			data = btoa(encodeURIComponent(outputInfo.binaryFileContents));
-
+			mimeType = 'application/octet-stream'; // Decryption always outputs binary
+			data = outputInfo.binaryFileContents;
 		}
 
-		filesystem.writeFile(fileName, fileType, data)
+		console.log("Writing file with name " + fileName + " type " + mimeType + " data " + data);
+		filesystem.writeFile(fileName, mimeType, data)
 	}
 
 </script>
@@ -128,12 +137,16 @@
 	<input type=radio group={doEncrypt} name="doEncrypt" value={false} on:change={onRadioChange}>
 	Decrypt
 </label>
+<br>
+<button on:click={clear}>
+	Clear
+</button>
 
 <h1>Input</h1>
 <button on:click={readClipboard}>
 	Paste
 </button>
-<input type="file" on:change={readFileInput}>
+<input type="file" bind:this={fileInputReference} on:change={readFileInput}>
 <br>
 <textarea bind:value={inputDisplayText} on:input={readTextInput}></textarea>
 

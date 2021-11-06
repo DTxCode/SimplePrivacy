@@ -1,9 +1,8 @@
 const openpgp = require('openpgp');
 
 async function encrypt(binaryInput, password) {
-
     const message = await openpgp.createMessage({
-        'binary': Uint8Array.from(binaryInput)
+        'binary': new Uint8Array(binaryInput)
     })
     
     const encrypted = await openpgp.encrypt({
