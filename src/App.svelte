@@ -3,6 +3,10 @@
 	import filesystem from './scripts/filesystem';
 	import clipboard from './scripts/clipboard';
 	
+	export let log;
+
+	const encoder = new TextEncoder();
+
 	let doEncrypt = true;
 
 	let inputDisplayText = '';
@@ -20,15 +24,13 @@
 			return;
 		}
 
-		console.log(`Processing input with ASCII value ${inputDisplayText} and binary value ${inputInfo.binaryFileContents}`)
+		log(`Processing input with ASCII value ${inputDisplayText} and binary value ${inputInfo.binaryFileContents}`)
 
 		try {
 			if (doEncrypt) {
 				const encryptedASCIIMessage = await crypto.encrypt(inputInfo.binaryFileContents, password);
 				
-				const encoder = new TextEncoder();
-
-				console.log(`Encrypted into ASCII message ${encryptedASCIIMessage}`)
+				log(`Encrypted into ASCII message ${encryptedASCIIMessage}`)
 
 				outputDisplayText = encryptedASCIIMessage;
 				outputInfo = {
@@ -37,7 +39,7 @@
 			} else {
 				const decryptedBinaryMessage = await crypto.decrypt(inputDisplayText, password);
 
-				console.log(`Decrypted into binary message ${decryptedBinaryMessage}`)
+				log(`Decrypted into binary message ${decryptedBinaryMessage}`)
 
 				outputDisplayText = "Download file to view decrypted binary"
 				outputInfo = {
@@ -67,7 +69,6 @@
 	async function readClipboard() {
 		const clipboardContents = await clipboard.readClipboard();
 
-		const encoder = new TextEncoder()
 		const binaryFileContents = encoder.encode(clipboardContents);
 
 		inputInfo = {
@@ -78,14 +79,12 @@
 
 	async function readFileInput(event) {
 		const fileList = event.target.files;
-		const decoder = new TextDecoder();
 
 		inputInfo = await filesystem.readFile(fileList[0]);
-		inputDisplayText = decoder.decode(inputInfo.binaryFileContents)   
+		inputDisplayText = 'File uploaded!';
 	}
 
 	function readTextInput(event) {
-		const encoder = new TextEncoder()
 		const binaryFileContents = encoder.encode(inputDisplayText);
 
 		inputInfo = {
@@ -121,7 +120,7 @@
 			data = outputInfo.binaryFileContents;
 		}
 
-		console.log("Writing file with name " + fileName + " type " + mimeType + " data " + data);
+		log("Writing file with name " + fileName + " type " + mimeType + " data " + data);
 		filesystem.writeFile(fileName, mimeType, data)
 	}
 

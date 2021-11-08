@@ -1,10 +1,8 @@
-Fix download file type
-Fix inputInfo
-Fix structure
 Write tests
 Delete svelte notes
-Fix webpack
 Fix license 
 Add S3 bucket
 Add Github action
 Add DNS
+Fix inputInfo
+Fix structure

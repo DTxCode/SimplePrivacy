@@ -1,4 +1,9 @@
-// 'file' is file object returned by file input button 
+/**
+ * Reads given file into memory.
+ * 
+ * @param {File} file 
+ * @returns Promise that resolves with an object containing the file's name and contents.
+ */
 function readFile(file) {
     return new Promise((resolve, reject) => {
         const fileName = file['name'];
@@ -18,6 +23,13 @@ function readFile(file) {
     });
 }
 
+/**
+ * Writes given data to disk using the given file name.
+ * 
+ * @param {string} fileName 
+ * @param {string} mimeType 
+ * @param {ArrayBuffer} data 
+ */
 function writeFile(fileName, mimeType, data) {
     const blob = new Blob([data], {
         type: mimeType
@@ -30,7 +42,7 @@ function writeFile(fileName, mimeType, data) {
     element.setAttribute('download', fileName);
     element.click();
     
-    setTimeout(() => window.URL.revokeObjectURL(url), 1000)
+    window.URL.revokeObjectURL(url)
 }
 
 export default {

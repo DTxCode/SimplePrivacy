@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "serve": "webpack serve --content-base public",
-    "build": "webpack"
+    "build-dev": "webpack",
+    "build": "webpack --env=mode=production"
   },
   "author": "",
   "license": "ISC",
@@ -12,9 +13,6 @@
     "openpgp": "^5.0.0"
   },
   "devDependencies": {
-    "@tsconfig/recommended": "^1.0.1",
-    "@types/node": "14.14.37",
-    "@types/openpgp": "4.4.15",
     "mini-css-extract-plugin": "^1.6.1",
     "svelte": "^3.38.3",
     "svelte-loader": "^3.1.2",
