@@ -1,8 +1,6 @@
-Write tests
-Delete svelte notes
 Fix license 
 Add S3 bucket
 Add Github action
-Add DNS
-Fix inputInfo
+Write tests
 Fix structure
+Add DNS

@@ -1,12 +1,11 @@
 const openpgp = require('openpgp');
 
 /**
- * 
- * Encrypts binary array input using given password.
+ * Encrypts byte array using given password.
  * 
  * @param {TypedArray} binaryInput 
  * @param {string} password 
- * @returns String with encrypted version of array input.
+ * @returns ASCII-armored encrypted string
  */
 async function encrypt(binaryInput, password) {
     const message = await openpgp.createMessage({
@@ -23,8 +22,7 @@ async function encrypt(binaryInput, password) {
 }
 
 /**
- * 
- * Decrypts encrypted string using given password.
+ * Decrypts ASCII-armored string using given password.
  * 
  * @param {string} encryptedMessage 
  * @param {string} password 

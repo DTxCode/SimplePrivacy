@@ -6,50 +6,53 @@
 	export let log;
 
 	const encoder = new TextEncoder();
+	const decoder = new TextDecoder();
+	const DOWNLOAD_FILE_MIME_TYPE = 'application/octet-stream';
+	const DEFAULT_DECRYPTED_FILE_NAME = 'decrypted.txt';
+	const DEFAULT_ENCRYPTED_FILE_NAME = 'encrypted.txt.gpg';
 
 	let doEncrypt = true;
 
-	let inputDisplayText = '';
-	let inputInfo; //binary and fileName
+	let inputData;
+	let inputDisplayText;
+	let inputFileName;
 	let fileInputReference;
 
 	let password;
 
-	let outputDisplayText = '';
-	let outputInfo; //binary
+	let outputData;
+	let outputDisplayText;
 
 	$: (async() => {
-		if (!inputInfo || !password) {
+		if (!inputData || !password) {
 			outputDisplayText = '';
 			return;
 		}
 
-		log(`Processing input with ASCII value ${inputDisplayText} and binary value ${inputInfo.binaryFileContents}`)
+		log(`Processing input with binary value ${inputData}`)
 
 		try {
 			if (doEncrypt) {
-				const encryptedASCIIMessage = await crypto.encrypt(inputInfo.binaryFileContents, password);
+				// Take binary input and encrypt it into ASCII-armored String
+				const encryptedASCII = await crypto.encrypt(inputData, password);
 				
-				log(`Encrypted into ASCII message ${encryptedASCIIMessage}`)
+				outputData = encoder.encode(encryptedASCII);
+				outputDisplayText = encryptedASCII;
 
-				outputDisplayText = encryptedASCIIMessage;
-				outputInfo = {
-					binaryFileContents: encoder.encode(encryptedASCIIMessage)
-				}
+				log(`Encrypted ${inputData} into message ${encryptedASCII}`)
 			} else {
-				const decryptedBinaryMessage = await crypto.decrypt(inputDisplayText, password);
+				// Convert binary input into (previously encrypted) ASCII-armored String and decrypt it into binary
+				const inputDataAsASCII = decoder.decode(inputData);
+				const decryptedBinary = await crypto.decrypt(inputDataAsASCII, password);
+				
+				outputData = decryptedBinary;
+				outputDisplayText = decoder.decode(byteArray);
 
-				log(`Decrypted into binary message ${decryptedBinaryMessage}`)
-
-				outputDisplayText = "Download file to view decrypted binary"
-				outputInfo = {
-					binaryFileContents: decryptedBinaryMessage
-				}
+				log(`Decrypted message ${inputDataAsASCII} into ${decryptedBinary}`)
 			}
 		} catch (e) {
 			outputDisplayText = e; 
 		}
-
 	})();
 
 	function onRadioChange() {
@@ -58,9 +61,10 @@
 	}
 
 	function clear() {
+		inputData = [];
+		inputFileName = '';
 		inputDisplayText = '';
 		password = '';
-		inputInfo = null;
 		fileInputReference.value = '';
 	}
 	
@@ -69,27 +73,22 @@
 	async function readClipboard() {
 		const clipboardContents = await clipboard.readClipboard();
 
-		const binaryFileContents = encoder.encode(clipboardContents);
-
-		inputInfo = {
-			binaryFileContents: binaryFileContents
-		}
+		inputData = encoder.encode(clipboardContents);
 		inputDisplayText = clipboardContents;
 	}
 
 	async function readFileInput(event) {
 		const fileList = event.target.files;
 
-		inputInfo = await filesystem.readFile(fileList[0]);
+		const inputInfo = await filesystem.readFile(fileList[0]);
+
+		inputData = inputInfo.binaryFileContents;
+		inputFileName = inputInfo.fileName;
 		inputDisplayText = 'File uploaded!';
 	}
 
 	function readTextInput(event) {
-		const binaryFileContents = encoder.encode(inputDisplayText);
-
-		inputInfo = {
-			binaryFileContents: binaryFileContents
-		}
+		inputData = encoder.encode(inputDisplayText);
 		// inputDisplayText manipulated by Svelte
 	}
 
@@ -101,27 +100,19 @@
 
 	function downloadOutput() {
 		let fileName;
-		let mimeType;
-		let data;
-		
 		if (doEncrypt) {
-			fileName = inputInfo.fileName ? inputInfo.fileName + '.gpg' : 'output.txt.gpg';
-
-			mimeType = 'text/plain'; // Encryption always outputs ASCII text
-			data = outputDisplayText;
+			fileName = inputFileName ? inputFileName + '.gpg' : DEFAULT_ENCRYPTED_FILE_NAME;
 		} else {
-			if (inputInfo.fileName) {
-				fileName = inputInfo.fileName.endsWith('.gpg') ? inputInfo.fileName.slice(0, -4) : inputInfo.fileName;
+			if (inputFileName) {
+				fileName = inputFileName.endsWith('.gpg') ? inputFileName.slice(0, -4) : inputFileName;
 			} else {
-				fileName = 'output.txt';
+				fileName = DEFAULT_DECRYPTED_FILE_NAME;
 			}
-
-			mimeType = 'application/octet-stream'; // Decryption always outputs binary
-			data = outputInfo.binaryFileContents;
 		}
 
-		log("Writing file with name " + fileName + " type " + mimeType + " data " + data);
-		filesystem.writeFile(fileName, mimeType, data)
+		log("Writing file with name " + fileName + " and data " + outputData);
+		
+		filesystem.writeFile(fileName, DOWNLOAD_FILE_MIME_TYPE, outputData)
 	}
 
 </script>
