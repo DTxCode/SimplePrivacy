@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "serve": "webpack serve --content-base public",
-    "build-dev": "webpack",
-    "build": "webpack --env=mode=production"
+    "build": "webpack",
+    "build-prod": "webpack --env=mode=production"
   },
   "author": "",
   "license": "ISC",
