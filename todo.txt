@@ -1,5 +1,0 @@
-Add S3 bucket
-Add Github action
-Write tests
-Fix structure
-Add DNS

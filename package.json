@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "serve": "webpack serve --content-base public",
+    "test": "jest src",
+    "test:watch": "npm run test -- --watch",
+    "serve": "webpack serve",
     "build": "webpack",
     "build-prod": "webpack --env=mode=production"
   },
@@ -13,12 +15,31 @@
     "openpgp": "^5.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.0",
+    "@testing-library/jest-dom": "^5.15.0",
+    "babel-jest": "^27.3.1",
     "css-loader": "^6.5.1",
+    "jest": "^27.3.1",
     "mini-css-extract-plugin": "^1.6.1",
     "svelte": "^3.38.3",
+    "svelte-jester": "^2.1.5",
     "svelte-loader": "^3.1.2",
     "webpack": "^5.40.0",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^4.5.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.svelte$": "svelte-jester"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "svelte"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
+    "testEnvironment": "jsdom"
   }
 }

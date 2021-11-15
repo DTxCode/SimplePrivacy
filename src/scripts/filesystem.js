@@ -2,25 +2,10 @@
  * Reads given file into memory.
  * 
  * @param {File} file 
- * @returns Promise that resolves with an object containing the file's name and contents.
+ * @returns Promise<ArrayBuffeR> that resolves with file's binary contents
  */
 function readFile(file) {
-    return new Promise((resolve, reject) => {
-        const fileName = file['name'];
-    
-        let binaryFileContents;
-        const fileReader = new FileReader();
-        fileReader.addEventListener('load', (event) => {
-            binaryFileContents = event.target.result;
-
-            resolve({
-                fileName,
-                binaryFileContents
-            });
-        });
-    
-        fileReader.readAsArrayBuffer(file);
-    });
+    return file.arrayBuffer();
 }
 
 /**
@@ -41,7 +26,7 @@ function writeFile(fileName, mimeType, data) {
     element.setAttribute('href', url);
     element.setAttribute('download', fileName);
     element.click();
-    
+
     window.URL.revokeObjectURL(url)
 }
 

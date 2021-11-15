@@ -3,7 +3,7 @@
  * 
  * @returns Promise<string> with clipboard data. 
  */
-function readClipboard() {
+function read() {
     return navigator.clipboard.readText()
         .then(text => {
             return text;
@@ -18,11 +18,11 @@ function readClipboard() {
  * @param {string} contents 
  * @returns Promise<void> that resolves when data has been saved.
  */
-function saveToClipboard(contents) {
+function save(contents) {
     return navigator.clipboard.writeText(contents);
 }
 
 export default {
-    readClipboard,
-    saveToClipboard
+    read,
+    save
 }
