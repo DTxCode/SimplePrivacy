@@ -1,5 +1,4 @@
 import filesystem from '../filesystem';
-import jsdom from "jsdom";
 
 test('reads contents of File as binary array', async () => {
     const data = new Uint8Array([99, 100]);
@@ -19,8 +18,8 @@ test('reads contents of File as binary array', async () => {
     await expect(filesystem.readFile(new mockFile())).resolves.toEqual(data);
 });
 
-test('saves file', async () => {
-    const data = new Uint8Array([99, 100])
+test('saves file using ObjectURL', async () => {
+    const data = new Uint8Array([99, 100]);
     const fileName = "fileName";
     const objectUrl = "blob:https://www.google.com/72882cf4-1efa-454f-ba1d-dcf9d726ae9c";
 

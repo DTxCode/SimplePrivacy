@@ -5,8 +5,8 @@ A privacy tool that's easy to use.
 ## Development
 
 Todo:
- - Write tests
  - Fix structure
+ - Write component tests
  - Load test
  - Write Css
  - Write About

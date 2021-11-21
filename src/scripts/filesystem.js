@@ -20,14 +20,14 @@ function writeFile(fileName, mimeType, data) {
         type: mimeType
     });
 
-    const url = window.URL.createObjectURL(blob)
+    const url = window.URL.createObjectURL(blob);
 
     var element = document.createElement('a');
     element.setAttribute('href', url);
     element.setAttribute('download', fileName);
     element.click();
 
-    window.URL.revokeObjectURL(url)
+    window.URL.revokeObjectURL(url);
 }
 
 export default {

@@ -11,7 +11,7 @@ async function encrypt(binaryInput, password) {
     const message = await openpgp.createMessage({
         'binary': new Uint8Array(binaryInput)
     })
-    
+
     const encrypted = await openpgp.encrypt({
         message,
         passwords: [password],
@@ -28,7 +28,7 @@ async function encrypt(binaryInput, password) {
  * @param {string} password 
  * @returns Uint8Array with decrypted bytes.
  */
-async function decrypt(encryptedMessage, password) { 
+async function decrypt(encryptedMessage, password) {
     const message = await openpgp.readMessage({
         armoredMessage: encryptedMessage
     });
