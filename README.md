@@ -5,11 +5,10 @@ A privacy tool that's easy to use.
 ## Development
 
 Todo:
- - Fix structure
+ - Decide on UX and write Css
  - Write component tests
- - Load test
- - Write Css
  - Write About
+ - Load test
  - Add DNS
 
 Issues:
