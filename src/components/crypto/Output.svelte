@@ -33,15 +33,17 @@
     }
 </script>
 
-<h2>Output</h2>
-<button on:click={saveToClipboard}> Copy </button>
-<button on:click={downloadOutput}> Download </button>
-<br />
-<textarea disabled value={outputDisplayText} />
+<div>
+    <h2>Output</h2>
+    <button on:click={saveToClipboard}> Copy </button>
+    <button on:click={downloadOutput}> Download </button>
+    <textarea disabled value={outputDisplayText} />
+</div>
 
 <style>
     textarea {
         width: 100%;
-        height: 100%;
+        height: 20rem;
+        resize: none;
     }
 </style>

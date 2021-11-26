@@ -1,14 +1,19 @@
-<div class="footer">
+<script>
+    export let accentColor;
+    export let footerHeight;
+</script>
+
+<div class="footer" style="--accentColor: {accentColor}; --footerHeight: {footerHeight}">
     <p>Github</p>
 </div>
 
 <style>
     .footer {
-        background-color: rgb(31, 31, 71);
+        background-color: rgb(46, 46, 46);
         position: absolute;
         bottom: 0;
         width: 100%;
-        height: 2.5rem;
+        height: var(--footerHeight);
     }
 
     p {

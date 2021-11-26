@@ -1,9 +1,13 @@
-<h1>Simple Privacy</h1>
+<script>
+    export let accentColor;
+</script>
+
+<h1 style="--accentColor: {accentColor}">Simple Privacy</h1>
 
 <style>
     h1 {
         padding-left: 30px;
-        background-color: rgb(31, 31, 71);
+        background-color: var(--accentColor);
         margin: 0;
         color: white;
     }

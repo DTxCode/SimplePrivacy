@@ -19,7 +19,6 @@
     let outputDisplayText; // For output
 
     $: (async () => {
-        log("asyncing");
         if (!inputData || !password) {
             outputDisplayText = "";
             return;
@@ -52,42 +51,52 @@
     })();
 </script>
 
-<div class="wrapper">
-    <div class="options">
-        <Options bind:doEncrypt />
-    </div>
-    <div class="input">
-        <Input bind:inputData bind:fileName bind:password />
-    </div>
-    <div class="output">
-        <Output {log} inputFileName={fileName} {outputData} {outputDisplayText} />
+<div class="page-wrapper">
+    <div class="content-wrapper">
+        <div class="options">
+            <Options bind:doEncrypt />
+        </div>
+        <div class="input">
+            <Input bind:inputData bind:fileName bind:password />
+        </div>
+        <div class="output">
+            <Output {log} inputFileName={fileName} {outputData} {outputDisplayText} />
+        </div>
     </div>
 </div>
 
 <style>
-    .wrapper {
+    .page-wrapper {
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+
+    .content-wrapper {
+        background-color: white;
+        border: 1px solid rgb(200, 200, 200);
         /* Grid layout */
         display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        grid-template-rows: repeat(6, minmax(0, 1fr));
-        gap: 20px;
-        /* Position on page */
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: max-content;
+        padding: 25px;
+        padding-top: 10px;
+        /* Position in div */
         margin: 0 auto;
         width: 90%;
     }
 
     .options {
-        grid-column: 1 / 6;
+        grid-column: 1;
         grid-row: 1;
     }
 
     .input {
-        grid-column: 1 / 6;
+        grid-column: 1;
         grid-row: 2 / 6;
     }
 
     .output {
-        grid-column: 7 / 12;
+        grid-column: 2;
         grid-row: 1 / 6;
     }
 </style>

@@ -8,6 +8,7 @@
     export let fileName;
     export let password;
 
+    let inputMode = "file";
     let fileInputReference;
     let inputDisplayText;
 
@@ -42,13 +43,26 @@
 </script>
 
 <h2>Input</h2>
-<button on:click={readClipboard}> Paste </button>
-<input type="file" bind:this={fileInputReference} on:change={readFileInput} />
-<br />
-<button on:click={clear}> Clear </button>
+<div>
+    <div class="big-btn">
+        <label>
+            <input type="radio" bind:group={inputMode} name="inputMode" value={"file"} />
+            Upload File
+        </label>
+    </div>
+    <div class="big-btn">
+        <label>
+            <input type="radio" bind:group={inputMode} name="inputMode" value={"text"} />
+            Input Text
+        </label>
+    </div>
+</div>
 
-<br />
-<textarea bind:value={inputDisplayText} on:input={readTextInput} />
+{#if inputMode == "file"}
+    <input type="file" bind:this={fileInputReference} on:change={readFileInput} />
+{:else}
+    <textarea bind:value={inputDisplayText} on:input={readTextInput} />
+{/if}
 
 <h2>Password</h2>
 <input bind:value={password} />
@@ -57,5 +71,6 @@
     textarea {
         width: 100%;
         height: 200px;
+        resize: none;
     }
 </style>
