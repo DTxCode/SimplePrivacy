@@ -1,23 +1,28 @@
 <script>
     import filesystem from "../../scripts/filesystem";
     import clipboard from "../../scripts/clipboard";
+    import Textfield from "@smui/textfield";
+    import Button, { Label, Icon } from "@smui/button";
+    import { createEventDispatcher } from "svelte";
 
+    const dispatch = createEventDispatcher();
     const encoder = new TextEncoder();
 
     export let inputData;
     export let fileName;
-    export let password;
+    export let password = "";
 
-    let inputMode = "file";
     let fileInputReference;
-    let inputDisplayText;
+    let inputDisplayText = "";
 
-    async function readClipboard() {
-        const clipboardContents = await clipboard.read();
+    $: inputData = encoder.encode(inputDisplayText);
 
-        inputData = encoder.encode(clipboardContents);
-        inputDisplayText = clipboardContents;
-    }
+    // async function readClipboard() {
+    //     const clipboardContents = await clipboard.read();
+
+    //     inputData = encoder.encode(clipboardContents);
+    //     inputDisplayText = clipboardContents;
+    // }
 
     async function readFileInput(event) {
         const fileList = event.target.files;
@@ -28,49 +33,62 @@
         inputDisplayText = "File uploaded!";
     }
 
-    function readTextInput(event) {
-        inputData = encoder.encode(inputDisplayText);
-        // inputDisplayText manipulated by Svelte
-    }
-
     function clear() {
-        inputData = [];
-        fileName = "";
         inputDisplayText = "";
+        fileName = "";
         password = "";
         fileInputReference.value = "";
     }
+
+    function dispatchClearEvent() {
+        dispatch("clear");
+    }
+
+    function dispatchEncryptEvent(doEncrypt) {
+        dispatch("encrypt", {
+            doEncrypt: doEncrypt,
+        });
+    }
 </script>
 
-<h2>Input</h2>
 <div>
-    <div class="big-btn">
-        <label>
-            <input type="radio" bind:group={inputMode} name="inputMode" value={"file"} />
-            Upload File
-        </label>
+    <div>
+        <h2>Input</h2>
+        <Button
+            variant="outlined"
+            on:click={() => {
+                fileInputReference.click();
+            }}
+        >
+            <Icon class="material-icons">upload_file</Icon>
+            <Label>Upload File</Label>
+            <input style="display:none" type="file" bind:this={fileInputReference} on:change={readFileInput} />
+        </Button>
+        <Button
+            variant="outlined"
+            on:click={() => {
+                clear();
+                dispatchClearEvent();
+            }}
+        >
+            <Icon class="material-icons">delete</Icon>
+            <Label>Clear</Label>
+        </Button>
+        <Textfield textarea style="width: 100%; height:200px;" bind:value={inputDisplayText} />
     </div>
-    <div class="big-btn">
-        <label>
-            <input type="radio" bind:group={inputMode} name="inputMode" value={"text"} />
-            Input Text
-        </label>
+    <div>
+        <h2>Password</h2>
+        <Textfield variant="outlined" bind:value={password} />
+    </div>
+    <div>
+        <Button on:click={() => dispatchEncryptEvent(true)} variant="raised">
+            <Label>Encrypt</Label>
+        </Button>
+        <Button on:click={() => dispatchEncryptEvent(false)} variant="raised">
+            <Label>Decrypt</Label>
+        </Button>
     </div>
 </div>
 
-{#if inputMode == "file"}
-    <input type="file" bind:this={fileInputReference} on:change={readFileInput} />
-{:else}
-    <textarea bind:value={inputDisplayText} on:input={readTextInput} />
-{/if}
-
-<h2>Password</h2>
-<input bind:value={password} />
-
 <style>
-    textarea {
-        width: 100%;
-        height: 200px;
-        resize: none;
-    }
 </style>

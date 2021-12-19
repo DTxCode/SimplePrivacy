@@ -1,11 +1,12 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path');
 const webpack = require('webpack');
 
 module.exports = (env) => {
 	const mode = env.mode || 'development';
 	const isProd = mode === 'production';
-	
+
 	return {
 		entry: {
 			'build/bundle': [`./src/main.js`]
@@ -60,6 +61,11 @@ module.exports = (env) => {
 			}),
 			new webpack.DefinePlugin({
 				WEBPACK_OVERRIDE_PRODUCTION: JSON.stringify(isProd)
+			}),
+			new CopyWebpackPlugin({
+				patterns: [
+					{ from: 'node_modules/svelte-material-ui/bare.css' },
+				]
 			})
 		],
 		devtool: isProd ? false : 'source-map',

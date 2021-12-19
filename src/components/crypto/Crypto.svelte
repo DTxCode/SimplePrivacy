@@ -1,102 +1,93 @@
 <script>
     import crypto from "../../scripts/crypto.js";
-    import Options from "./Options.svelte";
     import Input from "./Input.svelte";
     import Output from "./Output.svelte";
+
+    import LayoutGrid, { Cell } from "@smui/layout-grid";
 
     export let log;
 
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
 
-    let doEncrypt = true; // From options
+    let inputData;
+    let inputPassword;
+    let inputFileName;
 
-    let inputData; // From input
-    let password; // From input
-    let fileName; // From input
+    let outputDisplayText;
+    let outputDownloadConfig;
 
-    let outputData; // For output
-    let outputDisplayText; // For output
-
-    $: (async () => {
-        if (!inputData || !password) {
-            outputDisplayText = "";
+    async function handleEncrypt(event) {
+        if (!inputData || !inputPassword) {
             return;
         }
 
-        log(`Processing input with binary value ${inputData}`);
+        const doEncrypt = event.detail.doEncrypt;
+
+        log(
+            `Processing input with binary value "${inputData}", password "${inputPassword}", and doEncrypt "${doEncrypt}"`
+        );
 
         try {
+            let outputData;
+
             if (doEncrypt) {
                 // Take binary input and encrypt it into ASCII-armored String
-                const encryptedASCII = await crypto.encrypt(inputData, password);
+                const encryptedASCII = await crypto.encrypt(inputData, inputPassword);
 
-                outputData = encoder.encode(encryptedASCII);
                 outputDisplayText = encryptedASCII;
+                outputData = encoder.encode(encryptedASCII);
 
                 log(`Encrypted ${inputData} into message ${encryptedASCII}`);
             } else {
                 // Convert binary input into (previously encrypted) ASCII-armored String and decrypt it into binary
                 const inputDataAsASCII = decoder.decode(inputData);
-                const decryptedBinary = await crypto.decrypt(inputDataAsASCII, password);
+                const decryptedBinary = await crypto.decrypt(inputDataAsASCII, inputPassword);
 
-                outputData = decryptedBinary;
                 outputDisplayText = decoder.decode(decryptedBinary);
+                outputData = decryptedBinary;
 
                 log(`Decrypted message ${inputDataAsASCII} into ${decryptedBinary}`);
             }
+
+            outputDownloadConfig = {
+                inputFileName: inputFileName,
+                doEncrypt: doEncrypt,
+                outputData: outputData,
+            };
         } catch (e) {
             outputDisplayText = e;
         }
-    })();
+    }
+
+    function handleClear() {
+        outputDisplayText = "";
+        outputDownloadConfig = {
+            outputData: "",
+        };
+    }
 </script>
 
 <div class="page-wrapper">
-    <div class="content-wrapper">
-        <div class="options">
-            <Options bind:doEncrypt />
-        </div>
-        <div class="input">
-            <Input bind:inputData bind:fileName bind:password />
-        </div>
-        <div class="output">
-            <Output {log} inputFileName={fileName} {outputData} {outputDisplayText} />
-        </div>
-    </div>
+    <LayoutGrid>
+        <Cell span={6}>
+            <div class="input">
+                <Input
+                    bind:inputData
+                    bind:fileName={inputFileName}
+                    bind:password={inputPassword}
+                    on:encrypt={handleEncrypt}
+                    on:clear={handleClear}
+                />
+            </div>
+        </Cell>
+        <Cell span={6}>
+            <div class="output">
+                <Output {log} {inputFileName} {outputDisplayText} downloadConfig={outputDownloadConfig} />
+            </div>
+        </Cell>
+    </LayoutGrid>
 </div>
 
 <style>
-    .page-wrapper {
-        padding-top: 2%;
-        padding-bottom: 2%;
-    }
-
-    .content-wrapper {
-        background-color: white;
-        border: 1px solid rgb(200, 200, 200);
-        /* Grid layout */
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: max-content;
-        padding: 25px;
-        padding-top: 10px;
-        /* Position in div */
-        margin: 0 auto;
-        width: 90%;
-    }
-
-    .options {
-        grid-column: 1;
-        grid-row: 1;
-    }
-
-    .input {
-        grid-column: 1;
-        grid-row: 2 / 6;
-    }
-
-    .output {
-        grid-column: 2;
-        grid-row: 1 / 6;
-    }
 </style>
