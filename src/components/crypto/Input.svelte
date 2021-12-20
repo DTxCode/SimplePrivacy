@@ -97,16 +97,19 @@
         />
     </div>
     <div class="password">
-        <Textfield variant="outlined" bind:value={password} label="Password">
-            <Icon class="material-icons" slot="leadingIcon">https</Icon>
+        <Textfield style="width: 100%;" variant="outlined" bind:value={password} label="Password">
+            <Icon class="material-icons" slot="leadingIcon">vpn_key</Icon>
         </Textfield>
     </div>
 
     <div>
         <Button touch on:click={() => dispatchEncryptEvent(true)} variant="raised">
+            <ButtonIcon class="material-icons">https</ButtonIcon>
             <Label>Encrypt</Label>
         </Button>
         <Button touch on:click={() => dispatchEncryptEvent(false)} variant="raised">
+            <ButtonIcon class="material-icons">no_encryption</ButtonIcon>
+
             <Label>Decrypt</Label>
         </Button>
     </div>
@@ -114,7 +117,7 @@
 
 <style>
     .input-banner {
-        margin: 10px;
+        margin: 10px 0px 10px 10px;
     }
 
     .input-title {
