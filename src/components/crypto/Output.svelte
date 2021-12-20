@@ -3,8 +3,11 @@
     import clipboard from "../../scripts/clipboard";
     import Textfield from "@smui/textfield";
     import Button, { Label, Icon } from "@smui/button";
+    import { Title, Subtitle, Content } from "@smui/paper";
+    import CircularProgress from "@smui/circular-progress";
 
     export let log;
+    export let isLoading;
     export let outputDisplayText = "";
     export let downloadConfig = {}; // inputFileName, doEncrypt, outputData
 
@@ -43,20 +46,50 @@
 </script>
 
 <div>
-    <h2>Output</h2>
+    <div class="output-banner">
+        <div class="output-title">
+            <Title>Output</Title>
+        </div>
+        <div class="output-buttons">
+            <Button variant="outlined" on:click={saveToClipboard} touch>
+                <Icon class="material-icons">content_copy</Icon>
+                <Label>Copy</Label>
+            </Button>
 
-    <Button variant="outlined" on:click={saveToClipboard}>
-        <Icon class="material-icons">content_copy</Icon>
-        <Label>Copy</Label>
-    </Button>
+            <Button variant="outlined" on:click={downloadOutput} touch>
+                <Icon class="material-icons">download</Icon>
+                <Label>Download</Label>
+            </Button>
+        </div>
+    </div>
 
-    <Button variant="outlined" on:click={downloadOutput}>
-        <Icon class="material-icons">download</Icon>
-        <Label>Download</Label>
-    </Button>
-
-    <Textfield textarea disabled style="width: 100%; height:200px;" bind:value={outputDisplayText} />
+    {#if isLoading}
+        <div style="display: flex; justify-content: center">
+            <CircularProgress style="height: 32px; width: 32px;" indeterminate />
+        </div>
+    {:else}
+        <div>
+            <Textfield
+                textarea
+                disabled
+                variant="filled"
+                style="width: 100%; height:200px;"
+                bind:value={outputDisplayText}
+            />
+        </div>
+    {/if}
 </div>
 
 <style>
+    .output-banner {
+        margin: 10px;
+    }
+
+    .output-title {
+        display: inline-block;
+    }
+
+    .output-buttons {
+        float: right;
+    }
 </style>

@@ -7,20 +7,21 @@
 	export let log;
 </script>
 
-<div class="page">
+<div class="header">
 	<Header />
-	<div class="crypto-container">
-		<Paper>
-			<Content>
-				<Crypto {log} />
-			</Content>
-		</Paper>
-	</div>
+</div>
+
+<div class="crypto-container">
+	<Paper>
+		<Content>
+			<Crypto {log} />
+		</Content>
+	</Paper>
 </div>
 
 <style>
 	.crypto-container {
 		margin: 20px auto;
-		width: 95%;
+		width: 90%;
 	}
 </style>

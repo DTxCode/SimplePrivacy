@@ -1,8 +1,10 @@
 <script>
     import filesystem from "../../scripts/filesystem";
-    import clipboard from "../../scripts/clipboard";
     import Textfield from "@smui/textfield";
-    import Button, { Label, Icon } from "@smui/button";
+    import Icon from "@smui/textfield/icon";
+
+    import { Title, Subtitle, Content } from "@smui/paper";
+    import Button, { Label, Icon as ButtonIcon } from "@smui/button";
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
@@ -14,6 +16,7 @@
 
     let fileInputReference;
     let inputDisplayText = "";
+    let disableInput = false;
 
     $: inputData = encoder.encode(inputDisplayText);
 
@@ -29,8 +32,9 @@
         const file = fileList[0];
 
         fileName = file["name"];
+        disableInput = true;
+        inputDisplayText = `File ${fileName} selected`;
         inputData = await filesystem.readFile(file);
-        inputDisplayText = "File uploaded!";
     }
 
     function clear() {
@@ -38,6 +42,7 @@
         fileName = "";
         password = "";
         fileInputReference.value = "";
+        disableInput = false;
     }
 
     function dispatchClearEvent() {
@@ -53,42 +58,74 @@
 
 <div>
     <div>
-        <h2>Input</h2>
-        <Button
-            variant="outlined"
-            on:click={() => {
-                fileInputReference.click();
-            }}
-        >
-            <Icon class="material-icons">upload_file</Icon>
-            <Label>Upload File</Label>
-            <input style="display:none" type="file" bind:this={fileInputReference} on:change={readFileInput} />
-        </Button>
-        <Button
-            variant="outlined"
-            on:click={() => {
-                clear();
-                dispatchClearEvent();
-            }}
-        >
-            <Icon class="material-icons">delete</Icon>
-            <Label>Clear</Label>
-        </Button>
-        <Textfield textarea style="width: 100%; height:200px;" bind:value={inputDisplayText} />
+        <div class="input-banner">
+            <div class="input-title">
+                <Title>Input</Title>
+            </div>
+            <div class="input-buttons">
+                <Button
+                    variant="outlined"
+                    touch
+                    on:click={() => {
+                        clear();
+                        dispatchClearEvent();
+                    }}
+                >
+                    <ButtonIcon class="material-icons">delete</ButtonIcon>
+                    <Label>Clear</Label>
+                </Button>
+                <Button
+                    variant="outlined"
+                    touch
+                    on:click={() => {
+                        fileInputReference.click();
+                    }}
+                >
+                    <ButtonIcon class="material-icons">upload_file</ButtonIcon>
+                    <Label>Upload File or Zip</Label>
+                    <input style="display:none" type="file" bind:this={fileInputReference} on:change={readFileInput} />
+                </Button>
+            </div>
+        </div>
+
+        <Textfield
+            textarea
+            disabled={disableInput}
+            style="width: 100%; height:200px;"
+            bind:value={inputDisplayText}
+            label="Enter the data you want to encrypt, or upload a file"
+        />
     </div>
-    <div>
-        <h2>Password</h2>
-        <Textfield variant="outlined" bind:value={password} />
+    <div class="password">
+        <Textfield variant="outlined" bind:value={password} label="Password">
+            <Icon class="material-icons" slot="leadingIcon">https</Icon>
+        </Textfield>
     </div>
+
     <div>
-        <Button on:click={() => dispatchEncryptEvent(true)} variant="raised">
+        <Button touch on:click={() => dispatchEncryptEvent(true)} variant="raised">
             <Label>Encrypt</Label>
         </Button>
-        <Button on:click={() => dispatchEncryptEvent(false)} variant="raised">
+        <Button touch on:click={() => dispatchEncryptEvent(false)} variant="raised">
             <Label>Decrypt</Label>
         </Button>
     </div>
 </div>
 
 <style>
+    .input-banner {
+        margin: 10px;
+    }
+
+    .input-title {
+        display: inline-block;
+    }
+
+    .input-buttons {
+        float: right;
+    }
+
+    .password {
+        margin: 10px 0px;
+    }
 </style>

@@ -4,6 +4,7 @@
     import Output from "./Output.svelte";
 
     import LayoutGrid, { Cell } from "@smui/layout-grid";
+    import Dialog, { Title, Content } from "@smui/dialog";
 
     export let log;
 
@@ -13,6 +14,10 @@
     let inputData;
     let inputPassword;
     let inputFileName;
+
+    let isLoading = false;
+    let showError = false;
+    let errorMessage = "";
 
     let outputDisplayText;
     let outputDownloadConfig;
@@ -30,6 +35,7 @@
 
         try {
             let outputData;
+            isLoading = true;
 
             if (doEncrypt) {
                 // Take binary input and encrypt it into ASCII-armored String
@@ -56,8 +62,22 @@
                 outputData: outputData,
             };
         } catch (e) {
-            outputDisplayText = e;
+            log(e);
+            outputDisplayText = "";
+            outputDownloadConfig = {
+                outputData: "",
+            };
+            showError = true;
+
+            if (doEncrypt) {
+                errorMessage = "There was a problem encrypting your message.";
+            } else {
+                errorMessage =
+                    "There was a problem decrypting your message. Please check that you entered a valid encrypted message into the input box.";
+            }
         }
+
+        isLoading = false;
     }
 
     function handleClear() {
@@ -69,7 +89,7 @@
 </script>
 
 <div class="page-wrapper">
-    <LayoutGrid>
+    <LayoutGrid style="padding: 0px;">
         <Cell span={6}>
             <div class="input">
                 <Input
@@ -83,10 +103,15 @@
         </Cell>
         <Cell span={6}>
             <div class="output">
-                <Output {log} {inputFileName} {outputDisplayText} downloadConfig={outputDownloadConfig} />
+                <Output {log} {inputFileName} {outputDisplayText} downloadConfig={outputDownloadConfig} {isLoading} />
             </div>
         </Cell>
     </LayoutGrid>
+
+    <Dialog bind:open={showError} aria-labelledby="error-title" aria-describedby="error-content">
+        <Title id="error-title">Error</Title>
+        <Content id="error-content">{errorMessage}</Content>
+    </Dialog>
 </div>
 
 <style>

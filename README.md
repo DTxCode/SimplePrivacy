@@ -10,11 +10,12 @@ A privacy tool that's easy to use.
  - `npm run build-prod` build site using prod configs
 
 ### Todo:
- - Decide on UX and write Css
- - Write component tests
- - Write About
- - Load test
+ - Finish Header, Banner
+ - Setup theme colors
+ - Write About/Info
  - Add DNS
+ - Write component tests
+ - Load test
 
 ### Issues:
- - Improve error handling
+ - Bad UX with large files
