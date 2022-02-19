@@ -10,15 +10,10 @@
     <TopAppBar variant="static" color={"primary"}>
         <Row>
             <Section>
-                <Title>Simple Privacy</Title>
+                <Title>DataBezel</Title>
             </Section>
             <Section align="end" toolbar>
-                <Button
-                    touch
-                    variant="raised"
-                    style="background-color: rgb(30, 30, 30);"
-                    href="https://github.com/DTxCode/SimplePrivacy"
-                >
+                <Button touch variant="raised" color="secondary" href="https://github.com/DTxCode/SimplePrivacy">
                     <Icon component={Svg} viewBox="0 0 22 22">
                         <path d={mdiGithub} />
                     </Icon>

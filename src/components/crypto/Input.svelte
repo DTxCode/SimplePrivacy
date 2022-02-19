@@ -64,7 +64,7 @@
             </div>
             <div class="input-buttons">
                 <Button
-                    variant="outlined"
+                    color="secondary"
                     touch
                     on:click={() => {
                         clear();
@@ -75,14 +75,14 @@
                     <Label>Clear</Label>
                 </Button>
                 <Button
-                    variant="outlined"
+                    color="secondary"
                     touch
                     on:click={() => {
                         fileInputReference.click();
                     }}
                 >
                     <ButtonIcon class="material-icons">upload_file</ButtonIcon>
-                    <Label>Upload File or Zip</Label>
+                    <Label>Select File or Zip</Label>
                     <input style="display:none" type="file" bind:this={fileInputReference} on:change={readFileInput} />
                 </Button>
             </div>
@@ -103,11 +103,11 @@
     </div>
 
     <div>
-        <Button touch on:click={() => dispatchEncryptEvent(true)} variant="raised">
+        <Button touch on:click={() => dispatchEncryptEvent(true)} color="secondary" variant="raised">
             <ButtonIcon class="material-icons">https</ButtonIcon>
             <Label>Encrypt</Label>
         </Button>
-        <Button touch on:click={() => dispatchEncryptEvent(false)} variant="raised">
+        <Button touch on:click={() => dispatchEncryptEvent(false)} color="secondary" variant="raised">
             <ButtonIcon class="material-icons">no_encryption</ButtonIcon>
 
             <Label>Decrypt</Label>

@@ -1,40 +1,27 @@
 <script>
 	import Header from "./components/Header.svelte";
+	import Splash from "./components/Splash.svelte";
 	import Crypto from "./components/crypto/Crypto.svelte";
-
-	import Paper, { Title, Content } from "@smui/paper";
 
 	export let log;
 </script>
 
-<div>
-	<div class="header">
-		<Header />
-	</div>
-
-	<!-- <div class="home-banner">
-		<Paper style="height: 20em">
-			<Title>Hello!</Title>
-		</Paper>
-	</div> -->
-
-	<div class="crypto-container">
-		<Paper>
-			<Content>
-				<Crypto {log} />
-			</Content>
-		</Paper>
+<div class="page">
+	<Header />
+	<div class="content">
+		<Splash />
+		<Crypto {log} />
 	</div>
 </div>
 
 <style>
-	.crypto-container {
-		margin: 20px auto;
-		width: 90%;
+	.content {
+		background-image: linear-gradient(10deg, #6200ee 0%, rgb(35, 35, 35) 100%);
+		height: 100vh;
+		overflow: auto;
 	}
 
 	:global(body) {
 		margin: 0;
-		background-color: rgb(235, 235, 235);
 	}
 </style>

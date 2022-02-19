@@ -51,12 +51,12 @@
             <Title>Output</Title>
         </div>
         <div class="output-buttons">
-            <Button variant="outlined" on:click={saveToClipboard} touch>
+            <Button color="secondary" on:click={saveToClipboard} touch>
                 <Icon class="material-icons">content_copy</Icon>
                 <Label>Copy</Label>
             </Button>
 
-            <Button variant="outlined" on:click={downloadOutput} touch>
+            <Button color="secondary" on:click={downloadOutput} touch>
                 <Icon class="material-icons">download</Icon>
                 <Label>Download</Label>
             </Button>

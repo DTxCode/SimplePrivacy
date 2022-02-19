@@ -5,6 +5,7 @@
 
     import LayoutGrid, { Cell } from "@smui/layout-grid";
     import Dialog, { Title, Content } from "@smui/dialog";
+    import Paper, { Content as PaperContent } from "@smui/paper";
 
     export let log;
 
@@ -88,31 +89,53 @@
     }
 </script>
 
-<div class="page-wrapper">
-    <LayoutGrid style="padding: 0px;">
-        <Cell span={6}>
-            <div class="input">
-                <Input
-                    bind:inputData
-                    bind:fileName={inputFileName}
-                    bind:password={inputPassword}
-                    on:encrypt={handleEncrypt}
-                    on:clear={handleClear}
-                />
-            </div>
-        </Cell>
-        <Cell span={6}>
-            <div class="output">
-                <Output {log} {inputFileName} {outputDisplayText} downloadConfig={outputDownloadConfig} {isLoading} />
-            </div>
-        </Cell>
-    </LayoutGrid>
+<div class="crypto-wrapper">
+    <div class="paper-wrapper">
+        <Paper>
+            <PaperContent>
+                <LayoutGrid style="padding: 0px;">
+                    <Cell span={6}>
+                        <div class="input">
+                            <Input
+                                bind:inputData
+                                bind:fileName={inputFileName}
+                                bind:password={inputPassword}
+                                on:encrypt={handleEncrypt}
+                                on:clear={handleClear}
+                            />
+                        </div>
+                    </Cell>
+                    <Cell span={6}>
+                        <div class="output">
+                            <Output
+                                {log}
+                                {inputFileName}
+                                {outputDisplayText}
+                                downloadConfig={outputDownloadConfig}
+                                {isLoading}
+                            />
+                        </div>
+                    </Cell>
+                </LayoutGrid>
 
-    <Dialog bind:open={showError} aria-labelledby="error-title" aria-describedby="error-content">
-        <Title id="error-title">Error</Title>
-        <Content id="error-content">{errorMessage}</Content>
-    </Dialog>
+                <Dialog bind:open={showError} aria-labelledby="error-title" aria-describedby="error-content">
+                    <Title id="error-title">Error</Title>
+                    <Content id="error-content">{errorMessage}</Content>
+                </Dialog>
+            </PaperContent>
+        </Paper>
+    </div>
 </div>
 
 <style>
+    .crypto-wrapper {
+        width: 100vw;
+        float: left;
+        margin: 0px;
+    }
+
+    .paper-wrapper {
+        margin: 20px auto;
+        width: 85%;
+    }
 </style>

@@ -6,8 +6,9 @@
     "test": "jest src",
     "test:watch": "npm run test -- --watch",
     "serve": "webpack serve",
-    "build": "webpack",
-    "build-prod": "webpack --env=mode=production"
+    "prepare-css": "smui-theme compile public/build/smui.css -i src/theme",
+    "build": "npm run prepare-css && webpack",
+    "build-prod": "npm run prepare-css && webpack --env=mode=production"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.0",
+    "@material/typography": "^13.0.0",
     "@mdi/js": "^6.5.95",
     "@smui/button": "^6.0.0-beta.9",
     "@smui/circular-progress": "^6.0.0-beta.9",
@@ -31,6 +33,8 @@
     "css-loader": "^6.5.1",
     "jest": "^27.3.1",
     "mini-css-extract-plugin": "^1.6.1",
+    "sass-loader": "^12.4.0",
+    "smui-theme": "^6.0.0-beta.11",
     "svelte": "^3.38.3",
     "svelte-jester": "^2.1.5",
     "svelte-loader": "^3.1.2",

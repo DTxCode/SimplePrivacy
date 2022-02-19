@@ -1,5 +1,4 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path');
 const webpack = require('webpack');
 
@@ -39,19 +38,20 @@ module.exports = (env) => {
 					}
 				},
 				{
-					test: /\.css$/,
-					use: [
-						MiniCssExtractPlugin.loader,
-						'css-loader'
-					]
-				},
-				{
 					// required to prevent errors from Svelte on Webpack 5+
 					test: /node_modules\/svelte\/.*\.mjs$/,
 					resolve: {
 						fullySpecified: false
 					}
-				}
+				},
+				{
+					test: /\.(sa|sc|c)ss$/i,
+					use: [
+						!isProd ? "style-loader" : MiniCssExtractPlugin.loader,
+						"css-loader",
+						"sass-loader",
+					],
+				},
 			]
 		},
 		mode,
@@ -61,11 +61,6 @@ module.exports = (env) => {
 			}),
 			new webpack.DefinePlugin({
 				WEBPACK_OVERRIDE_PRODUCTION: JSON.stringify(isProd)
-			}),
-			new CopyWebpackPlugin({
-				patterns: [
-					{ from: 'node_modules/svelte-material-ui/bare.css' },
-				]
 			})
 		],
 		devtool: isProd ? false : 'source-map',
