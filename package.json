@@ -7,8 +7,8 @@
     "test:watch": "npm run test -- --watch",
     "serve": "webpack serve",
     "prepare-css": "smui-theme compile public/build/smui.css -i src/theme",
-    "build": "npm run prepare-css && webpack",
-    "build-prod": "npm run prepare-css && webpack --env=mode=production"
+    "build": "webpack && npm run prepare-css",
+    "build-prod": "webpack --env=mode=production && npm run prepare-css"
   },
   "author": "",
   "license": "ISC",
