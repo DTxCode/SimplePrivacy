@@ -93,7 +93,7 @@
     <div class="paper-wrapper">
         <Paper>
             <PaperContent>
-                <LayoutGrid style="padding: 0px;">
+                <LayoutGrid style="padding: 0px 25px;">
                     <Cell span={6}>
                         <div class="input">
                             <Input
@@ -129,8 +129,7 @@
 
 <style>
     .crypto-wrapper {
-        width: 100vw;
-        float: left;
+        width: 100%;
         margin: 0px;
     }
 

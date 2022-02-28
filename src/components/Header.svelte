@@ -1,6 +1,6 @@
 <script>
-    import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
-    import Button, { Label, Icon as ButtonIcon } from "@smui/button";
+    import TopAppBar, { Row, Section } from "@smui/top-app-bar";
+    import Button, { Label } from "@smui/button";
     import { Icon } from "@smui/common";
     import { Svg } from "@smui/common/elements";
     import { mdiGithub } from "@mdi/js";
@@ -10,7 +10,9 @@
     <TopAppBar variant="static" color={"primary"}>
         <Row>
             <Section>
-                <Title>DataBezel</Title>
+                <!-- <a href="/">
+                    <img src="images/logo.png" alt="logo" width="220" height="110" />
+                </a> -->
             </Section>
             <Section align="end" toolbar>
                 <Button touch variant="raised" color="secondary" href="https://github.com/DTxCode/SimplePrivacy">

@@ -1,17 +1,50 @@
 <script>
-    import Paper, { Title, Content } from "@smui/paper";
+    import { onMount } from "svelte";
+    const fileTypeChangeDelay = 3000;
+    const fileTypeList = [
+        "documents",
+        "photos",
+        "tax returns",
+        "bank statements",
+        "work documents",
+        "personal information",
+        "messages",
+    ];
+
+    let fileTypeIndex = 0;
+    let fileType = fileTypeList[fileTypeIndex];
+
+    onMount(() => {
+        const interval = setInterval(() => {
+            if (fileTypeIndex + 1 >= fileTypeList.length) {
+                fileTypeIndex = 0;
+            } else {
+                fileTypeIndex = fileTypeIndex + 1;
+            }
+
+            fileType = fileTypeList[fileTypeIndex];
+        }, fileTypeChangeDelay);
+
+        return () => {
+            clearInterval(interval);
+        };
+    });
 </script>
 
 <div class="splash-container">
     <div class="text-container">
         <div class="text">
             <h2>Simple Privacy</h2>
-            <h5>Password-protect your files</h5>
+            <h5>
+                Protect your <b>{fileType}</b>
+            </h5>
         </div>
     </div>
 
-    <div class="icon">
-        <h3>foo</h3>
+    <div class="img-container">
+        <div class="icon">
+            <img src="images/lock.png" alt="lock" width="200" height="200" />
+        </div>
     </div>
 </div>
 
@@ -42,8 +75,17 @@
         color: white;
     }
 
-    .icon {
+    .img-container {
         width: 50%;
+        height: 100%;
         float: left;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .icon {
+        /* width: 50%;
+        float: left; */
     }
 </style>

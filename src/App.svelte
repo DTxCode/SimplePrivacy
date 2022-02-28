@@ -17,8 +17,8 @@
 <style>
 	.content {
 		background-image: linear-gradient(10deg, #6200ee 0%, rgb(35, 35, 35) 100%);
-		height: 100vh;
-		overflow: auto;
+		height: auto;
+		overflow-y: auto;
 	}
 
 	:global(body) {

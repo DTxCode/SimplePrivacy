@@ -57,5 +57,17 @@
       "@testing-library/jest-dom/extend-expect"
     ],
     "testEnvironment": "jsdom"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
   }
 }

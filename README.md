@@ -11,11 +11,11 @@ A privacy tool that's easy to use.
 
 ### Todo:
  - Finish Header, Banner
- - Setup theme colors
- - Write About/Info
  - Add DNS
- - Write component tests
  - Load test
+ - Check OS and browser compatibility
+ - Write About/Info
+ - Write component tests
 
 ### Issues:
  - Bad UX with large files
