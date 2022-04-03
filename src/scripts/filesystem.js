@@ -2,7 +2,7 @@
  * Reads given file into memory.
  * 
  * @param {File} file 
- * @returns Promise<ArrayBuffeR> that resolves with file's binary contents
+ * @returns Promise<ArrayBuffer> that resolves with file's binary contents
  */
 function readFile(file) {
     return file.arrayBuffer();

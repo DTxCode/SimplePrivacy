@@ -32,18 +32,18 @@
 </script>
 
 <div class="splash-container">
+    <div class="img-container">
+        <div class="icon">
+            <img src="images/lock.png" alt="lock" width="200" height="200" />
+        </div>
+    </div>
+
     <div class="text-container">
         <div class="text">
             <h2>Simple Privacy</h2>
             <h5>
                 Protect your <b>{fileType}</b>
             </h5>
-        </div>
-    </div>
-
-    <div class="img-container">
-        <div class="icon">
-            <img src="images/lock.png" alt="lock" width="200" height="200" />
         </div>
     </div>
 </div>
@@ -54,8 +54,8 @@
         margin: 0px;
     }
 
-    .text-container {
-        width: 50%;
+    .img-container {
+        width: 40%;
         height: 100%;
         float: left;
         display: flex;
@@ -63,20 +63,8 @@
         align-items: center;
     }
 
-    .text {
-        text-align: right;
-        vertical-align: middle;
-        width: auto;
-    }
-
-    .text h2,
-    h5 {
-        margin: 20px;
-        color: white;
-    }
-
-    .img-container {
-        width: 50%;
+    .text-container {
+        width: 60%;
         height: 100%;
         float: left;
         display: flex;
@@ -84,8 +72,14 @@
         align-items: center;
     }
 
-    .icon {
-        /* width: 50%;
-        float: left; */
+    .text {
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .text h2,
+    h5 {
+        margin: 20px;
+        color: white;
     }
 </style>

@@ -33,13 +33,13 @@ async function decrypt(encryptedMessage, password) {
         armoredMessage: encryptedMessage
     });
 
-    const { data: decrpyted } = await openpgp.decrypt({
+    const { data: decrypted } = await openpgp.decrypt({
         message: message,
         passwords: [password],
         format: 'binary'
     })
 
-    return decrpyted;
+    return decrypted;
 }
 
 export default {

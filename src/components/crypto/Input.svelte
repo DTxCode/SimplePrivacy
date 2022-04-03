@@ -31,8 +31,8 @@
         const fileList = event.target.files;
         const file = fileList[0];
 
-        fileName = file["name"];
         disableInput = true;
+        fileName = file["name"];
         inputDisplayText = `File ${fileName} selected`;
         inputData = await filesystem.readFile(file);
     }

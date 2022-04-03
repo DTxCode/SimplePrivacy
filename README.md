@@ -10,7 +10,6 @@ A privacy tool that's easy to use.
  - `npm run build-prod` build site using prod configs
 
 ### Todo:
- - Finish Header, Banner
  - Add DNS
  - Load test
  - Check OS and browser compatibility
@@ -19,3 +18,4 @@ A privacy tool that's easy to use.
 
 ### Issues:
  - Bad UX with large files
+ - Can only decrypt PGP messages that were encrypted by OpenPGP
