@@ -4,11 +4,10 @@
     import Button, { Label, Icon as ButtonIcon } from "@smui/button";
     import { createEventDispatcher } from "svelte";
 
-    const dispatch = createEventDispatcher();
-
     export let data;
-    export let fileName = "";
+    export let fileName;
 
+    const dispatch = createEventDispatcher();
     let fileInputReference;
 
     export function clear() {
@@ -36,36 +35,47 @@
 </div>
 <div class="right-aligned">
     <Button color="secondary" variant="outlined" touch on:click={() => dispatchClearEvent()}>
-        <ButtonIcon class="material-icons">delete</ButtonIcon>
-        <Label>Clear</Label>
+        <ButtonIcon class="material-icons">restart_alt</ButtonIcon>
+        <Label>Reset</Label>
     </Button>
 </div>
-<div>
-    <Button
-        color="secondary"
-        variant="raised"
-        touch
-        on:click={() => {
-            fileInputReference.click();
-        }}
-    >
-        <ButtonIcon class="material-icons">upload_file</ButtonIcon>
-        <Label>Select File or Zip</Label>
-        <input style="display:none" type="file" bind:this={fileInputReference} on:change={readFileInput} />
-    </Button>
-    <Content>{fileName}</Content>
+<div class="input-container">
+    <div class="input-child">
+        <Button
+            color="secondary"
+            variant="raised"
+            touch
+            on:click={() => {
+                fileInputReference.click();
+            }}
+        >
+            <ButtonIcon class="material-icons">upload_file</ButtonIcon>
+            <Label>Select File or Zip</Label>
+            <input style="display:none" type="file" bind:this={fileInputReference} on:change={readFileInput} />
+        </Button>
+    </div>
+
+    <div class="input-child">
+        <Content><b>{fileName}</b></Content>
+    </div>
 </div>
 
 <style>
-    /* .input-banner {
-        margin: 10px 0px 10px 10px;
-    } */
-
     .input-title {
         display: inline-block;
     }
 
     .right-aligned {
         float: right;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .input-child {
+        flex-shrink: 1;
     }
 </style>

@@ -3,7 +3,8 @@
     import Textfield from "@smui/textfield";
     import { Title, Subtitle } from "@smui/paper";
 
-    export let password = "";
+    export let password;
+    export let lock;
 
     export function clear() {
         password = "";
@@ -11,8 +12,15 @@
 </script>
 
 <div class="selection-title">
-    <Title>Enter a strong password</Title>
-    <Subtitle>Your data is protected only by the strength of this password. Pick something long and random.</Subtitle>
+    {#if lock}
+        <Title>Enter a strong password</Title>
+        <Subtitle>
+            Your data will only be protected by the strength of this password. Pick something long and random.
+        </Subtitle>
+    {:else}
+        <Title>Enter the password used to lock this file</Title>
+        <Subtitle>You must use the same password that was used to lock the file.</Subtitle>
+    {/if}
 </div>
 
 <div class="password">

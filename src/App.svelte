@@ -1,7 +1,7 @@
 <script>
 	import Header from "./components/Header.svelte";
 	import Splash from "./components/Splash.svelte";
-	import Crypto from "./components/crypto/Crypto.svelte";
+	import Crypto from "./components/Crypto.svelte";
 
 	export let log;
 </script>

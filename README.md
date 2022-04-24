@@ -10,10 +10,8 @@ A privacy tool that's easy to use.
  - `npm run build-prod` build site using prod configs
 
 ### Todo:
- - Fix download button alignment
- - Fix input file name alignment
+ - Fix download buttons alignment and add error message
  - Add view to password box
- - Double check data flow simplification
  - Double check encryption encoding requirements
  - Write About/Info
  - Write component tests
