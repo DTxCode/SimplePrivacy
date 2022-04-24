@@ -10,12 +10,17 @@ A privacy tool that's easy to use.
  - `npm run build-prod` build site using prod configs
 
 ### Todo:
- - Add DNS
- - Load test
- - Check OS and browser compatibility
+ - Fix download button alignment
+ - Fix input file name alignment
+ - Add view to password box
+ - Double check data flow simplification
+ - Double check encryption encoding requirements
  - Write About/Info
  - Write component tests
+ - Revisit header
+ - Check mobile compatibility 
+ - Check OS and browser compatibility
+ - Write integration tests
 
 ### Issues:
- - Bad UX with large files
  - Can only decrypt PGP messages that were encrypted by OpenPGP

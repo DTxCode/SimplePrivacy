@@ -9,6 +9,7 @@
         "work documents",
         "personal information",
         "messages",
+        "medical forms",
     ];
 
     let fileTypeIndex = 0;

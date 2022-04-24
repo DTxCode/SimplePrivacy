@@ -1,95 +1,43 @@
 <script>
-    import filesystem from "../../scripts/filesystem";
-    import clipboard from "../../scripts/clipboard";
-    import Textfield from "@smui/textfield";
-    import Button, { Label, Icon } from "@smui/button";
-    import { Title, Subtitle, Content } from "@smui/paper";
-    import CircularProgress from "@smui/circular-progress";
+    import Button, { Label, Icon as ButtonIcon } from "@smui/button";
+    import { Title, Subtitle } from "@smui/paper";
+    import { createEventDispatcher } from "svelte";
 
-    export let log;
-    export let isLoading;
-    export let outputDisplayText = "";
-    export let downloadConfig = {}; // inputFileName, doEncrypt, outputData
+    const dispatch = createEventDispatcher();
 
-    const DOWNLOAD_FILE_MIME_TYPE = "application/octet-stream";
-    const DEFAULT_DECRYPTED_FILE_NAME = "decrypted.txt";
-    const DEFAULT_ENCRYPTED_FILE_NAME = "encrypted.txt.gpg";
-
-    async function saveToClipboard() {
-        await clipboard.save(outputDisplayText);
-    }
-
-    function downloadOutput() {
-        if (!downloadConfig.outputData) {
-            return;
-        }
-
-        let fileName;
-        if (downloadConfig.doEncrypt) {
-            fileName = downloadConfig.inputFileName
-                ? downloadConfig.inputFileName + ".gpg"
-                : DEFAULT_ENCRYPTED_FILE_NAME;
-        } else {
-            if (downloadConfig.inputFileName) {
-                fileName = downloadConfig.inputFileName.endsWith(".gpg")
-                    ? downloadConfig.inputFileName.slice(0, -4)
-                    : downloadConfig.inputFileName;
-            } else {
-                fileName = DEFAULT_DECRYPTED_FILE_NAME;
-            }
-        }
-
-        log("Writing file with name " + fileName + " and data " + downloadConfig.outputData);
-
-        filesystem.writeFile(fileName, DOWNLOAD_FILE_MIME_TYPE, downloadConfig.outputData);
+    function dispatchEncryptEvent(doEncrypt) {
+        dispatch("encrypt", {
+            doEncrypt: doEncrypt,
+        });
     }
 </script>
 
 <div>
-    <div class="output-banner">
-        <div class="output-title">
-            <Title>Output</Title>
-        </div>
-        <div class="output-buttons">
-            <Button color="secondary" on:click={saveToClipboard} touch>
-                <Icon class="material-icons">content_copy</Icon>
-                <Label>Copy</Label>
-            </Button>
+    <Title>Choose whether to lock or unlock your data</Title>
+    <Subtitle>Locking a file will hide its contents. Unlocking a file will give you the original version.</Subtitle>
+</div>
 
-            <Button color="secondary" on:click={downloadOutput} touch>
-                <Icon class="material-icons">download</Icon>
-                <Label>Download</Label>
-            </Button>
-        </div>
-    </div>
-
-    {#if isLoading}
-        <div style="display: flex; justify-content: center">
-            <CircularProgress style="height: 32px; width: 32px;" indeterminate />
-        </div>
-    {:else}
-        <div>
-            <Textfield
-                textarea
-                disabled
-                variant="filled"
-                style="width: 100%; height:200px;"
-                bind:value={outputDisplayText}
-            />
-        </div>
-    {/if}
+<div>
+    <Button touch on:click={() => dispatchEncryptEvent(true)} color="secondary" variant="raised">
+        <ButtonIcon class="material-icons">https</ButtonIcon>
+        <Label>Lock</Label>
+    </Button>
+    <Button touch on:click={() => dispatchEncryptEvent(false)} color="secondary" variant="raised">
+        <ButtonIcon class="material-icons">no_encryption</ButtonIcon>
+        <Label>UnLock</Label>
+    </Button>
 </div>
 
 <style>
-    .output-banner {
+    /* .output-banner {
         margin: 10px 0px 10px 10px;
-    }
+    } */
 
-    .output-title {
+    /* .output-title {
         display: inline-block;
-    }
+    } */
 
-    .output-buttons {
+    /* .output-buttons {
         float: right;
-    }
+    } */
 </style>
