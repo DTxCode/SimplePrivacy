@@ -1,27 +1,35 @@
 <script>
     import filesystem from "../../scripts/filesystem";
+    import crypto from "../../scripts/crypto";
+    import { CONTEXT_DECODER_KEY } from "../../scripts/constants";
     import { Title, Subtitle, Content } from "@smui/paper";
     import Button, { Label, Icon as ButtonIcon } from "@smui/button";
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, getContext } from "svelte";
 
     export let data;
     export let fileName;
+    export let lock;
 
     const dispatch = createEventDispatcher();
+    const decoder = getContext(CONTEXT_DECODER_KEY);
+
     let fileInputReference;
 
     export function clear() {
         data = [];
         fileName = "";
         fileInputReference.value = "";
+        lock = true;
     }
 
     async function readFileInput(event) {
         const fileList = event.target.files;
         const file = fileList[0];
 
-        fileName = file["name"];
         data = await filesystem.readFile(file);
+        fileName = file["name"];
+        // If selected file is not encrypted, then the operation that needs to be done is "lock"
+        lock = !crypto.isEncrypted(data, decoder);
     }
 
     function dispatchClearEvent() {
@@ -31,7 +39,7 @@
 
 <div class="input-title">
     <Title>Select the file or folder you want to protect</Title>
-    <Subtitle>Your data never leaves your computer.</Subtitle>
+    <Subtitle>The file never leaves your computer.</Subtitle>
 </div>
 <div class="right-aligned">
     <Button color="secondary" variant="outlined" touch on:click={() => dispatchClearEvent()}>

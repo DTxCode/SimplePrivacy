@@ -9,11 +9,7 @@
 <div class="header-container">
     <TopAppBar variant="static" color={"primary"}>
         <Row>
-            <Section>
-                <!-- <a href="/">
-                    <img src="images/logo.png" alt="logo" width="220" height="110" />
-                </a> -->
-            </Section>
+            <Section />
             <Section align="end" toolbar>
                 <Button touch variant="raised" color="secondary" href="https://github.com/DTxCode/SimplePrivacy">
                     <Icon component={Svg} viewBox="0 0 22 22">

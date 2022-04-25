@@ -1,9 +1,12 @@
 const openpgp = require('openpgp');
 
+const PGP_MESSAGE_START_INDEX = 27;
+const PGP_MESSAGE_START = "-----BEGIN PGP MESSAGE-----";
+
 /**
- * Encrypts byte array using given password.
+ * Encrypts given input using given password.
  * 
- * @param {TypedArray} binaryInput 
+ * @param {ArrayBuffer} binaryInput 
  * @param {string} password 
  * @returns ASCII-armored encrypted string
  */
@@ -22,7 +25,7 @@ async function encrypt(binaryInput, password) {
 }
 
 /**
- * Decrypts ASCII-armored string using given password.
+ * Decrypts given input using given password.
  * 
  * @param {string} encryptedMessage 
  * @param {string} password 
@@ -42,8 +45,22 @@ async function decrypt(encryptedMessage, password) {
     return decrypted;
 }
 
+/**
+ * Whether the given data is (probably) an encrypted PGP message
+ * @param {ArrayBuffer} data
+ * @param {TextDecoder} decoder
+ * @return bool for whether the given data is an encrpyted message
+ */
+function isEncrypted(data, decoder) {
+    const binaryMessageStart = data.slice(0, PGP_MESSAGE_START_INDEX);
+    const messageStart = decoder.decode(binaryMessageStart);
+
+    return messageStart === PGP_MESSAGE_START;
+}
+
 export default {
     encrypt,
-    decrypt
+    decrypt,
+    isEncrypted
 }
 

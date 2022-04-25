@@ -1,16 +1,12 @@
 <script>
     import Input from "./crypto/Input.svelte";
     import Password from "./crypto/Password.svelte";
-    import Option from "./crypto/Option.svelte";
     import Save from "./crypto/Save.svelte";
 
     import LayoutGrid, { Cell } from "@smui/layout-grid";
     import Paper, { Content as PaperContent } from "@smui/paper";
 
-    export let log;
-
     let inputComponent;
-    let optionComponent;
     let passwordComponent;
     let downloadComponent;
 
@@ -21,7 +17,6 @@
 
     function handleClear() {
         inputComponent.clear();
-        optionComponent.clear();
         passwordComponent.clear();
         downloadComponent.clear();
     }
@@ -31,46 +26,31 @@
     <div class="paper-wrapper">
         <Paper>
             <PaperContent>
-                <LayoutGrid style="padding: 0px 25px;">
+                <LayoutGrid style="padding: 0px 15px;">
                     <Cell span={1}>
                         <h2>1</h2>
                     </Cell>
                     <Cell span={11}>
-                        <div>
-                            <Input
-                                bind:this={inputComponent}
-                                bind:data={inputData}
-                                bind:fileName={inputFileName}
-                                on:clear={handleClear}
-                            />
-                        </div>
+                        <Input
+                            bind:this={inputComponent}
+                            bind:data={inputData}
+                            bind:fileName={inputFileName}
+                            bind:lock
+                            on:clear={handleClear}
+                        />
                     </Cell>
                     <Cell span={1}>
                         <h2>2</h2>
                     </Cell>
                     <Cell span={11}>
-                        <div>
-                            <Option bind:this={optionComponent} bind:lock />
-                        </div>
+                        <Password bind:this={passwordComponent} bind:password bind:lock />
                     </Cell>
+
                     <Cell span={1}>
                         <h2>3</h2>
                     </Cell>
                     <Cell span={11}>
-                        <Password bind:this={passwordComponent} bind:password bind:lock />
-                    </Cell>
-                    <Cell span={1}>
-                        <h2>4</h2>
-                    </Cell>
-                    <Cell span={11}>
-                        <Save
-                            bind:this={downloadComponent}
-                            bind:log
-                            bind:inputData
-                            bind:inputFileName
-                            bind:lock
-                            bind:password
-                        />
+                        <Save bind:this={downloadComponent} bind:inputData bind:inputFileName bind:lock bind:password />
                     </Cell>
                 </LayoutGrid>
             </PaperContent>
@@ -86,6 +66,11 @@
 
     .paper-wrapper {
         margin: 20px auto;
-        width: 70%;
+        width: 75%;
+    }
+
+    h2 {
+        margin-top: 5px;
+        text-align: center;
     }
 </style>

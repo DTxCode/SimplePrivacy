@@ -1,0 +1,7 @@
+const CONTEXT_LOG_KEY = Symbol()
+const CONTEXT_ENCODER_KEY = Symbol()
+const CONTEXT_DECODER_KEY = Symbol()
+
+export {
+    CONTEXT_LOG_KEY, CONTEXT_ENCODER_KEY, CONTEXT_DECODER_KEY
+}
