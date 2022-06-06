@@ -38,8 +38,7 @@
 </script>
 
 <div class="input-title">
-    <Title>Select the file or folder you want to protect</Title>
-    <Subtitle>The file never leaves your computer.</Subtitle>
+    <Title>Select a file or folder</Title>
 </div>
 <div class="right-aligned">
     <Button color="secondary" variant="outlined" touch on:click={() => dispatchClearEvent()}>
@@ -58,7 +57,7 @@
             }}
         >
             <ButtonIcon class="material-icons">upload_file</ButtonIcon>
-            <Label>Select File or Zip</Label>
+            <Label>Select</Label>
             <input style="display:none" type="file" bind:this={fileInputReference} on:change={readFileInput} />
         </Button>
     </div>

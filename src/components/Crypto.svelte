@@ -24,9 +24,9 @@
 
 <div class="crypto-wrapper">
     <div class="paper-wrapper">
-        <Paper>
+        <Paper elevation={10}>
             <PaperContent>
-                <LayoutGrid style="padding: 0px 15px;">
+                <LayoutGrid style="padding: 5px 20px;">
                     <Cell span={1}>
                         <h2>1</h2>
                     </Cell>

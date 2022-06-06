@@ -18,12 +18,12 @@
 <div>
     {#if lock}
         <Title>Enter a strong password to lock the file</Title>
-        <Subtitle>
+        <!-- <Subtitle>
             Your data will be protected only by the strength of this password. Pick something long and random.
-        </Subtitle>
+        </Subtitle> -->
     {:else}
-        <Title>Enter the password to unlock the file</Title>
-        <Subtitle>You must use the same password that was used to lock the file.</Subtitle>
+        <Title>Enter the password to unlock this file</Title>
+        <!-- <Subtitle>You must use the same password that was used to lock the file.</Subtitle> -->
     {/if}
 </div>
 

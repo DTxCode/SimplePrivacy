@@ -50,7 +50,7 @@
                 errorMessage = "There was a problem locking your data.";
             } else {
                 errorMessage =
-                    "There was a problem unlocking your data. Please check that you selected a previously-locked file.";
+                    "There was a problem unlocking your data. Please check that you selected an already locked file and entered the correct password.";
             }
 
             currentState = STATE_ERROR;
@@ -99,9 +99,10 @@
     <div>
         {#if lock}
             <Title>Save your locked file</Title>
-            <Subtitle>Your file will have a <b>.gpg</b> extension indicating it is locked.</Subtitle>
+            <!-- <Subtitle>Your file will have a <b>.gpg</b> extension indicating it is locked.</Subtitle> -->
         {:else}
             <Title>Save your unlocked file</Title>
+            <!-- <Subtitle>The <b>.gpg</b> extension will be removed.</Subtitle> -->
         {/if}
     </div>
 

@@ -17,12 +17,7 @@
 
     onMount(() => {
         const interval = setInterval(() => {
-            if (fileTypeIndex + 1 >= fileTypeList.length) {
-                fileTypeIndex = 0;
-            } else {
-                fileTypeIndex = fileTypeIndex + 1;
-            }
-
+            fileTypeIndex = (fileTypeIndex + 1) % fileTypeList.length;
             fileType = fileTypeList[fileTypeIndex];
         }, fileTypeChangeDelay);
 

@@ -10,9 +10,9 @@ A privacy tool that's easy to use.
  - `npm run build-prod` build site using prod configs
 
 ### Todo:
- - Write About/Info
  - Write component tests
- - Revisit header
+ - Force encryption config setting
+ - SEO 
  - Check mobile compatibility 
  - Check OS and browser compatibility
 

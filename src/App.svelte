@@ -2,6 +2,7 @@
 	import Header from "./components/Header.svelte";
 	import Splash from "./components/Splash.svelte";
 	import Crypto from "./components/Crypto.svelte";
+	import About from "./components/About.svelte";
 	import { CONTEXT_LOG_KEY, CONTEXT_ENCODER_KEY, CONTEXT_DECODER_KEY } from "./scripts/constants";
 	import { setContext } from "svelte";
 
@@ -20,12 +21,13 @@
 	<div class="content">
 		<Splash />
 		<Crypto />
+		<About />
 	</div>
 </div>
 
 <style>
 	.content {
-		background-image: linear-gradient(180deg, #6200ee 40%, rgb(45, 45, 45) 100%);
+		background-image: linear-gradient(165deg, #6200ee 10%, rgb(152, 152, 240) 100%);
 		height: auto;
 		overflow-y: auto;
 	}
