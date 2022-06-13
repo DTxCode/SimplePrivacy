@@ -11,10 +11,10 @@ A privacy tool that's easy to use.
 
 ### Todo:
  - Write component tests
- - Force encryption config setting
- - SEO 
- - Check mobile compatibility 
- - Check OS and browser compatibility
+ - Update main UI flow to make lock vs unlock clearer
+ - Check OS/Browser compatibility
+ - Support for folders
+ - Support for compression
 
 ### Issues:
- - Can only decrypt PGP messages that were encrypted by OpenPGP
+ - Can only decrypt PGP messages that were encrypted by OpenPGP.js

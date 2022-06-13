@@ -18,12 +18,8 @@
 <div>
     {#if lock}
         <Title>Enter a strong password to lock the file</Title>
-        <!-- <Subtitle>
-            Your data will be protected only by the strength of this password. Pick something long and random.
-        </Subtitle> -->
     {:else}
         <Title>Enter the password to unlock this file</Title>
-        <!-- <Subtitle>You must use the same password that was used to lock the file.</Subtitle> -->
     {/if}
 </div>
 
@@ -46,9 +42,5 @@
     .password-container {
         display: flex;
         align-items: center;
-    }
-
-    .password-text {
-        flex: 0 0 auto;
     }
 </style>

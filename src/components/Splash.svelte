@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+
     const fileTypeChangeDelay = 3000;
     const fileTypeList = [
         "documents",
@@ -9,7 +10,7 @@
         "work documents",
         "personal information",
         "messages",
-        "medical forms",
+        "medical records",
     ];
 
     let fileTypeIndex = 0;
@@ -45,27 +46,19 @@
 </div>
 
 <style>
+    img {
+        max-width: 100%;
+        display: block;
+    }
+
     .splash-container {
         height: 60vh;
         margin: 0px;
-    }
-
-    .img-container {
-        width: 40%;
-        height: 100%;
-        float: left;
         display: flex;
-        justify-content: flex-end;
+        flex-wrap: wrap;
+        justify-content: center;
         align-items: center;
-    }
-
-    .text-container {
-        width: 60%;
-        height: 100%;
-        float: left;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        align-content: center;
     }
 
     .text {

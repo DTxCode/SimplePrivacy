@@ -4,7 +4,10 @@
     import Save from "./crypto/Save.svelte";
 
     import LayoutGrid, { Cell } from "@smui/layout-grid";
-    import Paper, { Content as PaperContent } from "@smui/paper";
+    import Paper, { Content } from "@smui/paper";
+
+    const smallSpan = { desktop: 1, tablet: 1, phone: 1 };
+    const largeSpan = { desktop: 11, tablet: 7, phone: 3 };
 
     let inputComponent;
     let passwordComponent;
@@ -25,12 +28,12 @@
 <div class="crypto-wrapper">
     <div class="paper-wrapper">
         <Paper elevation={10}>
-            <PaperContent>
+            <Content>
                 <LayoutGrid style="padding: 5px 20px;">
-                    <Cell span={1}>
+                    <Cell spanDevices={smallSpan}>
                         <h2>1</h2>
                     </Cell>
-                    <Cell span={11}>
+                    <Cell spanDevices={largeSpan}>
                         <Input
                             bind:this={inputComponent}
                             bind:data={inputData}
@@ -39,21 +42,21 @@
                             on:clear={handleClear}
                         />
                     </Cell>
-                    <Cell span={1}>
+                    <Cell spanDevices={smallSpan}>
                         <h2>2</h2>
                     </Cell>
-                    <Cell span={11}>
+                    <Cell spanDevices={largeSpan}>
                         <Password bind:this={passwordComponent} bind:password bind:lock />
                     </Cell>
 
-                    <Cell span={1}>
+                    <Cell spanDevices={smallSpan}>
                         <h2>3</h2>
                     </Cell>
-                    <Cell span={11}>
+                    <Cell spanDevices={largeSpan}>
                         <Save bind:this={downloadComponent} bind:inputData bind:inputFileName bind:lock bind:password />
                     </Cell>
                 </LayoutGrid>
-            </PaperContent>
+            </Content>
         </Paper>
     </div>
 </div>
@@ -72,5 +75,6 @@
     h2 {
         margin-top: 5px;
         text-align: center;
+        font-size: 4em;
     }
 </style>

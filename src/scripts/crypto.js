@@ -2,6 +2,7 @@ const openpgp = require('openpgp');
 
 const PGP_MESSAGE_START_INDEX = 27;
 const PGP_MESSAGE_START = "-----BEGIN PGP MESSAGE-----";
+const SYMMETRIC_ALGO = openpgp.enums.symmetric.aes256
 
 /**
  * Encrypts given input using given password.
@@ -18,7 +19,10 @@ async function encrypt(binaryInput, password) {
     const encrypted = await openpgp.encrypt({
         message,
         passwords: [password],
-        format: 'armored'
+        format: 'armored',
+        config: {
+            preferredSymmetricAlgorithm: SYMMETRIC_ALGO
+        }
     });
 
     return encrypted;

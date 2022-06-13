@@ -27,7 +27,7 @@
 
 <style>
 	.content {
-		background-image: linear-gradient(165deg, #6200ee 10%, rgb(152, 152, 240) 100%);
+		background-image: linear-gradient(165deg, #6200ee, rgb(152, 152, 240));
 		height: auto;
 		overflow-y: auto;
 	}

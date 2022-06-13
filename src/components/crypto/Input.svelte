@@ -2,7 +2,7 @@
     import filesystem from "../../scripts/filesystem";
     import crypto from "../../scripts/crypto";
     import { CONTEXT_DECODER_KEY } from "../../scripts/constants";
-    import { Title, Subtitle, Content } from "@smui/paper";
+    import { Title, Content } from "@smui/paper";
     import Button, { Label, Icon as ButtonIcon } from "@smui/button";
     import { createEventDispatcher, getContext } from "svelte";
 
@@ -38,9 +38,9 @@
 </script>
 
 <div class="input-title">
-    <Title>Select a file or folder</Title>
+    <Title>Select a file</Title>
 </div>
-<div class="right-aligned">
+<div class="reset-button">
     <Button color="secondary" variant="outlined" touch on:click={() => dispatchClearEvent()}>
         <ButtonIcon class="material-icons">restart_alt</ButtonIcon>
         <Label>Reset</Label>
@@ -72,7 +72,7 @@
         display: inline-block;
     }
 
-    .right-aligned {
+    .reset-button {
         float: right;
     }
 
@@ -84,5 +84,11 @@
 
     .input-child {
         flex-shrink: 1;
+    }
+
+    @media (max-width: 600px) {
+        .reset-button {
+            float: none;
+        }
     }
 </style>
