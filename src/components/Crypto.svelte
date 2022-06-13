@@ -72,6 +72,12 @@
         width: 75%;
     }
 
+    @media (max-width: 600px) {
+        .paper-wrapper {
+            width: 95%;
+        }
+    }
+
     h2 {
         margin-top: 5px;
         text-align: center;

@@ -110,6 +110,12 @@
         width: 75%;
     }
 
+    @media (max-width: 600px) {
+        .paper-wrapper {
+            width: 95%;
+        }
+    }
+
     blockquote {
         margin-left: 1em;
     }
