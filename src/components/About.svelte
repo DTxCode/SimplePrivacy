@@ -17,7 +17,7 @@
             <Title>About</Title>
             <Content>
                 SimplePrivacy provides an easy way for you to password-protect your files. If you'd like to lock a
-                folder, please zip it first and then password-protect the zip.
+                folder, zip it first and then password-protect the zip file.
             </Content>
         </Paper>
 
@@ -81,7 +81,7 @@
             <Content>
                 While AES itself is considered very secure, the strength of its protection is still entirely dependent
                 on the password used. For this reason it is important that you choose a long and random password.
-                <b> The only way to open a file locked by this tool is to know (or guess) the original password. </b>
+                <b> The only way to open a file locked by this tool is to know the password. </b>
                 For help choosing a password, see
                 <a href="https://support.google.com/accounts/answer/32040?hl=en">Google's recommendations</a>.
             </Content>
