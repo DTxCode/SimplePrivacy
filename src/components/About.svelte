@@ -1,5 +1,5 @@
 <script>
-    import Paper, { Title, Subtitle, Content } from "@smui/paper";
+    import Paper, { Title, Content } from "@smui/paper";
 
     const elevation = 10;
     const sectionPadding = 40;
@@ -17,7 +17,7 @@
             <Title>About</Title>
             <Content>
                 SimplePrivacy provides an easy way for you to password-protect your files. If you'd like to lock a
-                folder, zip it first and then password-protect the zip file.
+                folder, please zip it first and then password-protect the zip file.
             </Content>
         </Paper>
 

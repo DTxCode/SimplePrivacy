@@ -17,9 +17,9 @@
 
 <div>
     {#if lock}
-        <Title>Enter a strong password to lock the file</Title>
+        <Title>Enter a strong password</Title>
     {:else}
-        <Title>Enter the password to unlock this file</Title>
+        <Title>Enter the password</Title>
     {/if}
 </div>
 

@@ -7,11 +7,11 @@
 </script>
 
 <div class="header-container">
-    <TopAppBar variant="static" color={"primary"}>
+    <TopAppBar variant="static" color={"secondary"}>
         <Row>
             <Section />
             <Section align="end" toolbar>
-                <Button touch variant="raised" color="secondary" href="https://github.com/DTxCode/SimplePrivacy">
+                <Button touch variant="raised" href="https://github.com/DTxCode/SimplePrivacy">
                     <Icon component={Svg} viewBox="0 0 22 22">
                         <path d={mdiGithub} />
                     </Icon>

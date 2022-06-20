@@ -98,15 +98,15 @@
 <div>
     <div>
         {#if lock}
-            <Title>Save your protected file</Title>
+            <Title>Save the locked file</Title>
         {:else}
-            <Title>Save your unlocked file</Title>
+            <Title>Save the unlocked file</Title>
         {/if}
     </div>
 
     <div class="save-container">
         <div class="save-child">
-            <Button color="secondary" variant="raised" on:click={handleSave} touch>
+            <Button variant="raised" on:click={handleSave} touch>
                 <ButtonIcon class="material-icons">download</ButtonIcon>
                 <Label>Save</Label>
             </Button>

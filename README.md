@@ -11,7 +11,6 @@ A privacy tool that's easy to use.
 
 ### Todo:
  - Write component tests
- - Update main UI flow to make lock vs unlock clearer
  - Check OS/Browser compatibility
  - Support for folders
  - Support for compression

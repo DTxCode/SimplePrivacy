@@ -1,6 +1,6 @@
 @use '@material/theme/index' as theme with (
-  $primary: rgb(25, 25, 25),
-  $secondary: #6200ee,
+  $primary: #6200ee,
+  $secondary: rgb(25, 25, 25)
 );
 
 @use '@material/typography/mdc-typography';
@@ -9,7 +9,7 @@
 html {
   @include typography.typography('body1');
 }
- 
+
 h1 {
   @include typography.typography('headline1');
 }

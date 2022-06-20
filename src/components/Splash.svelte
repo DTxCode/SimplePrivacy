@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
 
-    const fileTypeChangeDelay = 3000;
+    const fileTypeChangeDelay = 2500;
     const fileTypeList = [
         "documents",
         "photos",

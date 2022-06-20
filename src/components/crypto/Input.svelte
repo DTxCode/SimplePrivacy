@@ -28,8 +28,9 @@
 
         data = await filesystem.readFile(file);
         fileName = file["name"];
+        // TODO: Revisit auto lock vs unlock detection?
         // If selected file is not encrypted, then the operation that needs to be done is "lock"
-        lock = !crypto.isEncrypted(data, decoder);
+        // lock = !crypto.isEncrypted(data, decoder);
     }
 
     function dispatchClearEvent() {
@@ -41,7 +42,7 @@
     <Title>Select a file</Title>
 </div>
 <div class="reset-button">
-    <Button color="secondary" variant="outlined" touch on:click={() => dispatchClearEvent()}>
+    <Button variant="outlined" touch on:click={() => dispatchClearEvent()}>
         <ButtonIcon class="material-icons">restart_alt</ButtonIcon>
         <Label>Reset</Label>
     </Button>
@@ -49,7 +50,6 @@
 <div class="input-container">
     <div class="input-child">
         <Button
-            color="secondary"
             variant="raised"
             touch
             on:click={() => {
