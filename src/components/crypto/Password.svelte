@@ -1,7 +1,7 @@
 <script>
     import Icon from "@smui/textfield/icon";
     import Textfield from "@smui/textfield";
-    import { Title, Subtitle } from "@smui/paper";
+    import { Title } from "@smui/paper";
     import IconButton, { Icon as ButtonIcon } from "@smui/icon-button";
 
     export let password;

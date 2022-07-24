@@ -1,17 +1,13 @@
 <script>
     import filesystem from "../../scripts/filesystem";
-    import crypto from "../../scripts/crypto";
-    import { CONTEXT_DECODER_KEY } from "../../scripts/constants";
+    import { createEventDispatcher } from "svelte";
     import { Title, Content } from "@smui/paper";
     import Button, { Label, Icon as ButtonIcon } from "@smui/button";
-    import { createEventDispatcher, getContext } from "svelte";
 
     export let data;
     export let fileName;
-    export let lock;
 
     const dispatch = createEventDispatcher();
-    const decoder = getContext(CONTEXT_DECODER_KEY);
 
     let fileInputReference;
 
@@ -19,7 +15,6 @@
         data = [];
         fileName = "";
         fileInputReference.value = "";
-        lock = true;
     }
 
     async function readFileInput(event) {

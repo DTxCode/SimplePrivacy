@@ -79,8 +79,9 @@
                 </blockquote>
             </Content>
             <Content>
-                While AES itself is considered very secure, the strength of its protection is still entirely dependent
-                on the password used. For this reason it is important that you choose a long and random password.
+                While AES itself is considered very secure, the strength of its protection is still dependent on the
+                password you use. Longer and more random passwords are harded to guess and will provide you with
+                stronger protection.
                 <b> The only way to open a file locked by this tool is to know the password. </b>
                 For help choosing a password, see
                 <a href="https://support.google.com/accounts/answer/32040?hl=en">Google's recommendations</a>.

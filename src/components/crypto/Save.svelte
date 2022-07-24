@@ -4,7 +4,7 @@
     import { CONTEXT_LOG_KEY, CONTEXT_DECODER_KEY } from "../../scripts/constants";
     import CircularProgress from "@smui/circular-progress";
     import Button, { Label, Icon as ButtonIcon } from "@smui/button";
-    import { Title, Subtitle, Content } from "@smui/paper";
+    import { Title, Content } from "@smui/paper";
     import { getContext } from "svelte";
 
     export let inputData;

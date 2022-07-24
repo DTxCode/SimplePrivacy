@@ -59,7 +59,6 @@
                                 bind:this={inputComponent}
                                 bind:data={inputData}
                                 bind:fileName={inputFileName}
-                                bind:lock
                                 on:clear={handleClear}
                             />
                         </Cell>
@@ -69,7 +68,6 @@
                         <Cell spanDevices={largeSpan}>
                             <Password bind:this={passwordComponent} bind:password bind:lock />
                         </Cell>
-
                         <Cell spanDevices={smallSpan}>
                             <h2>3</h2>
                         </Cell>
