@@ -24,13 +24,19 @@
 </div>
 
 <div class="password-container">
-    <div class="password-text">
-        <Textfield type={passwordTextFieldType} variant="outlined" bind:value={password} label="Password">
+    <div>
+        <Textfield
+            type={passwordTextFieldType}
+            variant="outlined"
+            bind:value={password}
+            label="Password"
+            data-testid="password"
+        >
             <Icon class="material-icons" slot="leadingIcon">vpn_key</Icon>
         </Textfield>
     </div>
 
-    <div class="password-button">
+    <div>
         <IconButton toggle bind:pressed={passwordVisible}>
             <ButtonIcon class="material-icons" on>visibility_off</ButtonIcon>
             <ButtonIcon class="material-icons">visibility</ButtonIcon>

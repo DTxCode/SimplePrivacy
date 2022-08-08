@@ -10,7 +10,6 @@ A privacy tool that's easy to use.
  - `npm run build-prod` build site using prod configs
 
 ### Todo:
- - Write component tests
  - Check OS/Browser compatibility
  - Support for folders
  - Support for compression

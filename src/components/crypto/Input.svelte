@@ -37,7 +37,7 @@
     <Title>Select a file</Title>
 </div>
 <div class="reset-button">
-    <Button variant="outlined" touch on:click={() => dispatchClearEvent()}>
+    <Button variant="outlined" touch on:click={() => dispatchClearEvent()} data-testid="reset">
         <ButtonIcon class="material-icons">restart_alt</ButtonIcon>
         <Label>Reset</Label>
     </Button>
@@ -53,7 +53,13 @@
         >
             <ButtonIcon class="material-icons">upload_file</ButtonIcon>
             <Label>Select</Label>
-            <input style="display:none" type="file" bind:this={fileInputReference} on:change={readFileInput} />
+            <input
+                style="display:none"
+                type="file"
+                bind:this={fileInputReference}
+                on:change={readFileInput}
+                data-testid="file-selector"
+            />
         </Button>
     </div>
 

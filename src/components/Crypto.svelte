@@ -15,10 +15,12 @@
         {
             icon: "lock",
             label: "Lock",
+            "data-testid": "lock-tab",
         },
         {
             icon: "lock_open",
             label: "Unlock",
+            "data-testid": "unlock-tab",
         },
     ];
     let active = tabs[0];
@@ -44,7 +46,7 @@
         <Paper elevation={10} style="padding: 0;">
             <Content>
                 <TabBar {tabs} let:tab bind:active>
-                    <Tab {tab} style="min-height: 3em;">
+                    <Tab {tab} style="min-height: 3em;" data-testid={tab["data-testid"]}>
                         <Icon class="material-icons">{tab.icon}</Icon>
                         <Label>{tab.label}</Label>
                     </Tab>

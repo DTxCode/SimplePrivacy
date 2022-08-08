@@ -80,8 +80,8 @@
             </Content>
             <Content>
                 While AES itself is considered very secure, the strength of its protection is still dependent on the
-                password you use. Longer and more random passwords are harded to guess and will provide you with
-                stronger protection.
+                password you use. Longer and more random passwords are harded to guess and will provide you with better
+                security.
                 <b> The only way to open a file locked by this tool is to know the password. </b>
                 For help choosing a password, see
                 <a href="https://support.google.com/accounts/answer/32040?hl=en">Google's recommendations</a>.
@@ -119,5 +119,6 @@
 
     blockquote {
         margin-left: 1em;
+        margin-right: 1em;
     }
 </style>

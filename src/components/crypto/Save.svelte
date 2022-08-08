@@ -58,7 +58,7 @@
     }
 
     async function doEncrypt(inputData, password, lock) {
-        log(`Processing input with binary value "${inputData}", password "${password}", and doEncrypt "${lock}"`);
+        log(`Processing input with doEncrypt "${lock}", password "${password}", and binary value "${inputData}"`);
 
         let outputData;
         if (lock) {
@@ -106,7 +106,7 @@
 
     <div class="save-container">
         <div class="save-child">
-            <Button variant="raised" on:click={handleSave} touch>
+            <Button variant="raised" on:click={handleSave} touch data-testid="save">
                 <ButtonIcon class="material-icons">download</ButtonIcon>
                 <Label>Save</Label>
             </Button>
@@ -122,7 +122,7 @@
                         <ButtonIcon class="material-icons">warning</ButtonIcon>
                     </div>
                     <div>
-                        <Content>{errorMessage}</Content>
+                        <Content data-testid="error-message">{errorMessage}</Content>
                     </div>
                 </div>
             {/if}
