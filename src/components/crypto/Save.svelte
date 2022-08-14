@@ -106,7 +106,14 @@
 
     <div class="save-container">
         <div class="save-child">
-            <Button variant="raised" on:click={handleSave} touch data-testid="save">
+            <Button
+                variant="raised"
+                on:click={async () => {
+                    await handleSave();
+                }}
+                touch
+                data-testid="save"
+            >
                 <ButtonIcon class="material-icons">download</ButtonIcon>
                 <Label>Save</Label>
             </Button>

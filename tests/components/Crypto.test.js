@@ -10,8 +10,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PGP_MESSAGE_REGEX = /^-----BEGIN PGP MESSAGE-----(.*)-----END PGP MESSAGE-----\n$/s;
-// Includes header, new lines, and footer
-const PGP_MESSAGE_MIN_LENGTH = 56;
+const PGP_MESSAGE_MIN_LENGTH = 56; // Includes header, new lines, and footer
 
 const FILE_SELECT_BUTTON_ID = 'file-selector';
 const PASSWORD_BOX_ID = 'password';
@@ -27,6 +26,7 @@ const EXPECTED_WRONG_PASSWORD_MESSAGE = 'There was a problem unlocking your data
 const LARGE_FILE_PATH = path.resolve(__dirname, '../data/large_pic.jpg');
 
 const MAX_LOG_LINE = 500;
+const LOGGER = util.getTruncatedLogger(MAX_LOG_LINE);
 
 // Map of test name -> blob
 const testBlobs = new Map();
@@ -52,7 +52,7 @@ beforeEach(() => {
         props: {
             component: Crypto,
             contextPairs: [
-                { contextKey: CONTEXT_LOG_KEY, contextValue: util.getTruncatedLogger(MAX_LOG_LINE) },
+                { contextKey: CONTEXT_LOG_KEY, contextValue: LOGGER },
                 { contextKey: CONTEXT_DECODER_KEY, contextValue: textDecoder }
             ]
         }
@@ -217,19 +217,22 @@ describe('decryption', () => {
         expect(decryptionOutput).toEqual(inputData);
     })
 
-    // TODO investigate
-    test.skip('can decrypt previously-encrypted generic PGP message', async () => {
+    test('can decrypt previously-encrypted generic PGP message', async () => {
+        // Generated using `GPG_TTY=$(tty) bash -c "echo 'abc' | gpg --output - --armor --symmetric"`
+        // Setting GPG_TTY is needed for `gpg` to correctly process input from STDIN
+        // Setting `--output -` redirects `gpg` output to STDOUT
         const encryptedMessage = `-----BEGIN PGP MESSAGE-----\n
         \n
-        jA0ECQMCAEOqtMQRrYT/0kEBK3Utm80ZQ2X0QFlKkzkKsCFnCcjd4esePG4v17wo\n
-        jTfhBRmnc4EprvFdSmEdbRujIFWyJzXHAclnWnJ5ZnTChg==\n
-        =XIQY\n-----END PGP MESSAGE-----`;
+        jA0ECQMCUBH4ELbrAtr/0kEBoGhg8IkNx3mQ7xKbsCPwcCr3d+T7L+614m/2truQ\n
+        TY/7oUUYNydLX4UBc2Nwamj04PjYVi9dx6vnchkY1zq8dw==\n
+        =+tnn\n-----END PGP MESSAGE-----`;
         const password = "pwd";
-        const expectedMessage = "abc";
+        // `gpg` on command line adds new line to input
+        const expectedMessage = "hello world\n";
 
-        const output = await doMainWorkflow('test.txt', textEncoder.encode(encryptedMessage), password);
+        const decryptionOutput = await doMainWorkflow('test.txt.gpg', textEncoder.encode(encryptedMessage), password);
 
-        expect(output).toEqual(expectedMessage)
+        expect(decryptionOutput).toEqual(expectedMessage);
     })
 })
 
@@ -273,6 +276,10 @@ async function doMainWorkflow(fileName, fileContents, password) {
         const saveButton = screen.getByTestId(SAVE_BUTTON_ID);
         await user.click(saveButton);
     }
+
+    // Wait for all state changes to flush
+    // https://javascriptweblog.wordpress.com/2010/06/28/understanding-javascript-timers/
+    await new Promise(setTimeout);
 
     const savedBlob = getSpiedBlob();
 

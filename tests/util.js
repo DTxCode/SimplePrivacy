@@ -29,10 +29,11 @@ function createTestFile(name, data) {
 function getTruncatedLogger(maxLength) {
     return (message) => {
 
+        const time = new Date().toISOString();
         if (message.length > maxLength) {
-            console.log(message.slice(0, maxLength) + "...[Truncated]");
+            console.log(time + ": " + message.slice(0, maxLength) + "...[Truncated]");
         } else {
-            console.log(message);
+            console.log(time + ": " + message);
         }
     }
 }

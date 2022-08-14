@@ -10,9 +10,8 @@ A privacy tool that's easy to use.
  - `npm run build-prod` build site using prod configs
 
 ### Todo:
+ - Add disclaimer
+ - Investigate signing/zipped web app version
  - Check OS/Browser compatibility
  - Support for folders
  - Support for compression
-
-### Issues:
- - Can only decrypt PGP messages that were encrypted by OpenPGP.js
