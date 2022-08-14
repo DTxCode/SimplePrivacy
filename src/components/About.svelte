@@ -92,7 +92,7 @@
             <Content>
                 Your use of SimplePrivacy's file-locking tool implies that you understand the limitations of the
                 encryption mechanism. SimplePrivacy's authors follow industry standards in the development and
-                maintainence of this website, but they cannot guarantee that a locked file will never be unlocked by an
+                maintenance of this website, but they cannot guarantee that a locked file will never be unlocked by an
                 unauthorized party.
             </Content>
             <br />
@@ -109,7 +109,7 @@
             <br />
             <Content>
                 Nevertheless, in most cases locking a file with this tool before sending it over email or uploading it
-                to a cloud storage service still offers significant protection from unauthorized access.
+                to cloud storage still offers significant protection from unauthorized access.
             </Content>
         </Paper>
 
