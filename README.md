@@ -10,7 +10,7 @@ A privacy tool that's easy to use.
  - `npm run build-prod` build site using prod configs
 
 ### Todo:
- - Add disclaimer
+ - Add support for decrypting non-armored PGP messages
  - Investigate signing/zipped web app version
  - Check OS/Browser compatibility
  - Support for folders

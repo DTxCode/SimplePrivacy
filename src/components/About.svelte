@@ -22,18 +22,6 @@
         </Paper>
 
         <Paper {elevation} style="padding: {sectionPadding}px; margin-top: {subPadding}px;">
-            <Title>Privacy</Title>
-            <Content>
-                <b>
-                    The name, size, and contents of the files you process with this tool are not recorded, uploaded, or
-                    shared with anyone.
-                </b>
-                The source code of this site is available for verification on
-                <a href="https://github.com/DTxCode/SimplePrivacy">Github</a>.
-            </Content>
-        </Paper>
-
-        <Paper {elevation} style="padding: {sectionPadding}px; margin-top: {subPadding}px;">
             <Title>Security</Title>
             <Content>
                 SimplePrivacy protects your files using a mechanism called the Advanced Encryption Standard (AES-256),
@@ -81,10 +69,47 @@
             <Content>
                 While AES itself is considered very secure, the strength of its protection is still dependent on the
                 password you use. Longer and more random passwords are harded to guess and will provide you with better
-                security.
-                <b> The only way to open a file locked by this tool is to know the password. </b>
-                For help choosing a password, see
+                security. For help choosing a password, see
                 <a href="https://support.google.com/accounts/answer/32040?hl=en">Google's recommendations</a>.
+            </Content>
+        </Paper>
+
+        <Paper {elevation} style="padding: {sectionPadding}px; margin-top: {subPadding}px;">
+            <Title>Privacy</Title>
+            <Content>
+                <b>
+                    The names and contents of the files you process with this tool are not recorded, uploaded, or shared
+                    with anyone.
+                </b>
+                The source code of this site is available for verification on
+                <a href="https://github.com/DTxCode/SimplePrivacy">Github</a>.
+            </Content>
+        </Paper>
+
+        <Paper {elevation} style="padding: {sectionPadding}px; margin-top: {subPadding}px;">
+            <Title>Risks</Title>
+
+            <Content>
+                Your use of SimplePrivacy's file-locking tool implies that you understand the limitations of the
+                encryption mechanism. SimplePrivacy's authors follow industry standards in the development and
+                maintainence of this website, but they cannot guarantee that a locked file will never be unlocked by an
+                unauthorized party.
+            </Content>
+            <br />
+            <Content>
+                Files that are locked with weak passwords
+                <a
+                    href="https://www.cnbc.com/2022/03/20/study-if-your-passwords-are-less-than-8-characters-long-change-them.html"
+                >
+                    are trivial to unlock
+                </a>
+                by a knowledgeable adversary. Even files that are locked with strong passwords may be unlocked if the attacker
+                is able to try lots of different passwords very quickly.
+            </Content>
+            <br />
+            <Content>
+                Nevertheless, in most cases locking a file with this tool before sending it over email or uploading it
+                to a cloud storage service still offers significant protection from unauthorized access.
             </Content>
         </Paper>
 

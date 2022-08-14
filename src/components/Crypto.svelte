@@ -8,10 +8,10 @@
     import Tab, { Icon, Label } from "@smui/tab";
     import TabBar from "@smui/tab-bar";
 
-    const smallSpan = { desktop: 1, tablet: 1, phone: 1 };
-    const largeSpan = { desktop: 11, tablet: 7, phone: 3 };
+    const SMALL_SPAN = { desktop: 1, tablet: 1, phone: 1 };
+    const LARGE_SPAN = { desktop: 11, tablet: 7, phone: 3 };
 
-    let tabs = [
+    const TABS = [
         {
             icon: "lock",
             label: "Lock",
@@ -23,7 +23,7 @@
             "data-testid": "unlock-tab",
         },
     ];
-    let active = tabs[0];
+    let active = TABS[0];
     $: lock = active.label === "Lock";
 
     let inputComponent;
@@ -45,7 +45,7 @@
     <div class="paper-wrapper">
         <Paper elevation={10} style="padding: 0;">
             <Content>
-                <TabBar {tabs} let:tab bind:active>
+                <TabBar tabs={TABS} let:tab bind:active>
                     <Tab {tab} style="min-height: 3em;" data-testid={tab["data-testid"]}>
                         <Icon class="material-icons">{tab.icon}</Icon>
                         <Label>{tab.label}</Label>
@@ -53,10 +53,10 @@
                 </TabBar>
                 <div class="crypto-main">
                     <LayoutGrid>
-                        <Cell spanDevices={smallSpan}>
+                        <Cell spanDevices={SMALL_SPAN}>
                             <h2>1</h2>
                         </Cell>
-                        <Cell spanDevices={largeSpan}>
+                        <Cell spanDevices={LARGE_SPAN}>
                             <Input
                                 bind:this={inputComponent}
                                 bind:data={inputData}
@@ -64,16 +64,16 @@
                                 on:clear={handleClear}
                             />
                         </Cell>
-                        <Cell spanDevices={smallSpan}>
+                        <Cell spanDevices={SMALL_SPAN}>
                             <h2>2</h2>
                         </Cell>
-                        <Cell spanDevices={largeSpan}>
+                        <Cell spanDevices={LARGE_SPAN}>
                             <Password bind:this={passwordComponent} bind:password bind:lock />
                         </Cell>
-                        <Cell spanDevices={smallSpan}>
+                        <Cell spanDevices={SMALL_SPAN}>
                             <h2>3</h2>
                         </Cell>
-                        <Cell spanDevices={largeSpan}>
+                        <Cell spanDevices={LARGE_SPAN}>
                             <Save
                                 bind:this={downloadComponent}
                                 bind:inputData

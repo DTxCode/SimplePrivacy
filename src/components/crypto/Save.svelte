@@ -17,6 +17,7 @@
     const STATE_DONE = "done";
     const STATE_ERROR = "error";
     const DOWNLOAD_FILE_MIME_TYPE = "application/octet-stream";
+    const ENCRYPTED_FILE_EXTENSION = ".txt";
 
     const log = getContext(CONTEXT_LOG_KEY);
     const decoder = getContext(CONTEXT_DECODER_KEY);
@@ -81,17 +82,24 @@
     }
 
     function saveOutput(inputFileName, lock, outputData) {
-        let fileName;
+        let outputFileName = inputFileName;
 
         if (lock) {
-            fileName = inputFileName + ".gpg";
+            // During encryption, add extension to help distinguish protected files
+            outputFileName = inputFileName + ENCRYPTED_FILE_EXTENSION;
         } else {
-            fileName = inputFileName.endsWith(".gpg") ? inputFileName.slice(0, -4) : inputFileName;
+            // During decryption, remove extension that was previously added
+            const hasMultipleExtensions = (inputFileName.match(/\./g) || []).length > 1;
+            const endsWithEncryptedExtension = inputFileName.endsWith(ENCRYPTED_FILE_EXTENSION);
+
+            if (hasMultipleExtensions && endsWithEncryptedExtension) {
+                outputFileName = inputFileName.slice(0, -1 * ENCRYPTED_FILE_EXTENSION.length);
+            }
         }
 
-        log("Writing file with name " + fileName + " and data " + outputData);
+        log("Writing file with name " + outputFileName + " and data " + outputData);
 
-        filesystem.writeFile(fileName, DOWNLOAD_FILE_MIME_TYPE, outputData);
+        filesystem.writeFile(outputFileName, DOWNLOAD_FILE_MIME_TYPE, outputData);
     }
 </script>
 
