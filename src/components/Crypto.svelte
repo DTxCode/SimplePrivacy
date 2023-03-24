@@ -97,7 +97,7 @@
 
     .paper-wrapper {
         margin: 20px auto;
-        width: 75%;
+        width: 65%;
     }
 
     @media (max-width: 600px) {

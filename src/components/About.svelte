@@ -24,8 +24,9 @@
         <Paper {elevation} style="padding: {sectionPadding}px; margin-top: {subPadding}px;">
             <Title>Security</Title>
             <Content>
-                SimplePrivacy protects your files using a mechanism called the Advanced Encryption Standard (AES-256),
-                one of the most widely used encryption specifications in the world.
+                SimplePrivacy protects your files using a mechanism called the Advanced Encryption Standard (AES-256).
+                While AES is considered very secure, the strength of its protection is still dependent on the password
+                you use. Longer and more random passwords are harded to guess and will provide you with better security.
             </Content>
             <Content>
                 <blockquote>
@@ -54,24 +55,6 @@
                     >)
                 </blockquote>
             </Content>
-            <Content>
-                <blockquote>
-                    "The use of AES is ubiquitous, and the algorithm enjoys strong support in the cryptographic
-                    community. Examples of protocols and applications that make use of AES are Transport Layer Security
-                    (TLS), which is used by virtually all web browsers; ... and the Personal Identity Verification (PIV)
-                    used across the US Federal Government." (<a
-                        href="https://nvlpubs.nist.gov/nistpubs/ir/2021/NIST.IR.8319.pdf"
-                    >
-                        US National Institute of Standards and Technology</a
-                    >)
-                </blockquote>
-            </Content>
-            <Content>
-                While AES itself is considered very secure, the strength of its protection is still dependent on the
-                password you use. Longer and more random passwords are harded to guess and will provide you with better
-                security. For help choosing a password, see
-                <a href="https://support.google.com/accounts/answer/32040?hl=en">Google's recommendations</a>.
-            </Content>
         </Paper>
 
         <Paper {elevation} style="padding: {sectionPadding}px; margin-top: {subPadding}px;">
@@ -87,13 +70,12 @@
         </Paper>
 
         <Paper {elevation} style="padding: {sectionPadding}px; margin-top: {subPadding}px;">
-            <Title>Risks</Title>
+            <Title>Limitations</Title>
 
             <Content>
-                Your use of SimplePrivacy's file-locking tool implies that you understand the limitations of the
-                encryption mechanism. SimplePrivacy's authors follow industry standards in the development and
-                maintenance of this website, but they cannot guarantee that a locked file will never be unlocked by an
-                unauthorized party.
+                Please be aware of the limitations of SimplePrivacy's file-locking tool. Locking a file before sending
+                it over email or uploading it to cloud storage will provide you with significant protection, but it is
+                not impossible for someone else to unlock your file.
             </Content>
             <br />
             <Content>
@@ -103,13 +85,8 @@
                 >
                     are trivial to unlock
                 </a>
-                by a knowledgeable adversary. Even files that are locked with strong passwords may be unlocked if the attacker
-                is able to try lots of different passwords very quickly.
-            </Content>
-            <br />
-            <Content>
-                Nevertheless, in most cases locking a file with this tool before sending it over email or uploading it
-                to cloud storage still offers significant protection from unauthorized access.
+                by a knowledgeable adversary. Even files that are locked with strong passwords can be unlocked with enough
+                time.
             </Content>
         </Paper>
 
@@ -133,7 +110,7 @@
 
     .paper-wrapper {
         margin: 20px auto;
-        width: 75%;
+        width: 65%;
     }
 
     @media (max-width: 600px) {

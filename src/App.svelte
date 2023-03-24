@@ -27,9 +27,24 @@
 
 <style>
 	.content {
-		background-image: linear-gradient(165deg, #6200ee, rgb(152, 152, 240));
+		/* background-image: linear-gradient(165deg, #6200ee, rgb(2, 2, 27)); */
+		background: linear-gradient(165deg, #d63c3c, #6200ee, #212335);
+		animation: Pulse 25s ease infinite;
+		background-size: 300% 300%;
 		height: auto;
 		overflow-y: auto;
+	}
+
+	@keyframes Pulse {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
 	}
 
 	:global(body) {
